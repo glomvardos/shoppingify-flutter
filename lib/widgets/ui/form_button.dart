@@ -20,7 +20,7 @@ class FormButton extends StatelessWidget {
           ),
         ),
         style: ElevatedButton.styleFrom(
-            primary: Theme.of(context).primaryColor,
+            primary: Theme.of(context).colorScheme.primary,
             padding: const EdgeInsets.symmetric(vertical: 15)),
       ),
     );

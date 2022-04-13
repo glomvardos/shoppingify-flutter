@@ -25,12 +25,14 @@ class InputField extends StatelessWidget {
       decoration: InputDecoration(
         errorStyle: const TextStyle(fontSize: 12),
         errorMaxLines: 1,
+        floatingLabelStyle:
+            TextStyle(color: Theme.of(context).colorScheme.primary),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: Colors.black),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).primaryColor),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
           borderRadius: BorderRadius.circular(10),
         ),
         errorBorder: OutlineInputBorder(
@@ -38,7 +40,7 @@ class InputField extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).primaryColor),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
           borderRadius: BorderRadius.circular(10),
         ),
         labelText: labelText,

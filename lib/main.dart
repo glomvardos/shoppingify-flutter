@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:shoppingify/screens/add_new_item_screen.dart';
-import 'package:shoppingify/screens/login.dart';
-import 'package:shoppingify/widgets/bottom_bar/bottom_bar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shoppingify/app.dart';
+import 'package:shoppingify/bloc/authentication_bloc.dart';
+import 'package:shoppingify/services/authentication.dart';
 
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Shoppingify',
-      theme: ThemeData(
-        primaryColor: const Color(0xFFF9A109),
-        fontFamily: 'Quicksand',
+  runApp(
+    MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<AuthenticationService>(
+          create: (context) => AuthenticationApiService(),
+        ),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AuthenticationBloc>(
+              create: (context) =>
+                  AuthenticationBloc(context.read<AuthenticationService>())
+                    ..add(Initialize()))
+        ],
+        child: const App(),
       ),
-      home: const Login(),
-      routes: {
-        AddNewItemScreen.routeName: (_) => const AddNewItemScreen(),
-      },
-    );
-  }
+    ),
+  );
 }
