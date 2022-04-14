@@ -35,5 +35,11 @@ class AuthenticationBloc
         emit(const AuthenticationFailure(message: 'An has occurred'));
       }
     });
+
+    on<LogoutEvent>((event, emit) async {
+      await _authenticationService.logout();
+
+      emit(AuthenticationNotAuthenticated());
+    });
   }
 }

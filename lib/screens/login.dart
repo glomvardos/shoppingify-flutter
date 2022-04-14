@@ -62,9 +62,10 @@ class _LoginState extends State<Login> {
                               Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  'Shopingify',
+                                  'Shoppingify',
                                   style: TextStyle(
-                                      color: Theme.of(context).colorScheme.primary,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold),
                                 ),

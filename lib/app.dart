@@ -17,6 +17,7 @@ class App extends StatelessWidget {
             ColorScheme.fromSwatch().copyWith(primary: const Color(0xFFF9A109)),
         fontFamily: 'Quicksand',
       ),
+    
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
         if (state is AuthenticationSuccess) {

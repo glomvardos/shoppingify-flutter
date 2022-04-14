@@ -7,6 +7,7 @@ abstract class AuthenticationService {
   Future<String?> login(String email, String password);
   Future<String?> register(
       String email, String password, String firstName, String lastName);
+  Future<void> logout();
 }
 
 class AuthenticationApiService implements AuthenticationService {
@@ -40,5 +41,11 @@ class AuthenticationApiService implements AuthenticationService {
       String email, String password, String firstName, String lastName) async {
     Response response = await _client.post('');
     return '';
+  }
+
+  @override
+  Future<void> logout() async {
+    final _prefs = await SharedPreferences.getInstance();
+    _prefs.remove('token');
   }
 }

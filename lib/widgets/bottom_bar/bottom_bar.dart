@@ -3,6 +3,7 @@ import 'package:shoppingify/screens/add_new_item_screen.dart';
 import 'package:shoppingify/screens/categories_screen.dart';
 import 'package:shoppingify/screens/history_screen.dart';
 import 'package:shoppingify/screens/statistics_screen.dart';
+import 'package:shoppingify/widgets/drawer/drawer_menu.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -29,9 +30,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const DrawerMenu(),
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
           _selectedPageIndex == 0
               ? 'Categories'
@@ -44,9 +46,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         currentIndex: _selectedPageIndex,
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: Colors.white,
-        selectedItemColor: const Color(0xFFF9A109),
+        selectedItemColor: Colors.black,
         onTap: (index) => _selectPage(index),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -68,7 +70,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         onPressed: () {
           Navigator.of(context).pushNamed(AddNewItemScreen.routeName);
         },
-        backgroundColor: const Color(0xFFF9A109),
+        backgroundColor: Colors.black,
         child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation:

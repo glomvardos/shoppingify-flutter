@@ -9,8 +9,8 @@ class AddNewItemScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Add New Item'),
-          backgroundColor: Colors.black,
+          backgroundColor: Theme.of(context).colorScheme.primary,
         ),
-        body: Container(child: Text('Add new item')));
+        body: const SizedBox(child: Text('Add new item')));
   }
 }
