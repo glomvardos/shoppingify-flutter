@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/authentication_bloc.dart';
+import 'package:shoppingify/screens/register.dart';
 import 'package:shoppingify/widgets/ui/form_button.dart';
 import 'package:shoppingify/widgets/ui/input_field.dart';
 import 'package:shoppingify/widgets/ui/label.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
+  static const String routeName = '/login';
 
   @override
   State<Login> createState() => _LoginState();
@@ -14,14 +16,14 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool _autoValidate = false;
-  final TextEditingController _emaiController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    _emaiController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
   }
 
@@ -30,22 +32,34 @@ class _LoginState extends State<Login> {
     _onUserLogin() {
       if (_formKey.currentState!.validate()) {
         context.read<AuthenticationBloc>().add(LoginEvent(
-            email: _emaiController.text, password: _passwordController.text));
+            email: _emailController.text, password: _passwordController.text));
       } else {
         setState(() => _autoValidate = true);
       }
     }
 
     final mediaQuery = MediaQuery.of(context).size.width;
-    return Scaffold(body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+    return Scaffold(
+        body: BlocListener<AuthenticationBloc, AuthenticationState>(
+      listener: (_, state) {
+        if (state is AuthenticationFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.redAccent,
+              content: Text(state.message),
+            ),
+          );
+        }
+      },
+      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-      if (state is AuthenticationNotAuthenticated) {
-        return CustomScrollView(
-          slivers: [
-            SliverFillRemaining(
-                hasScrollBody: false,
-                child: Center(
-                  child: Card(
+          if (state is AuthenticationNotAuthenticated) {
+            return CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Center(
+                    child: Card(
                       elevation: 4,
                       child: Container(
                         padding: const EdgeInsets.all(30),
@@ -75,7 +89,7 @@ class _LoginState extends State<Login> {
                               const SizedBox(height: 10),
                               InputField(
                                 labelText: 'Enter your Email',
-                                controller: _emaiController,
+                                controller: _emailController,
                                 obscureText: false,
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (value) => value!.isEmpty
@@ -94,18 +108,44 @@ class _LoginState extends State<Login> {
                                     ? "Password can't be empty"
                                     : null,
                               ),
-                              const SizedBox(height: 40),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  const Text(
+                                    "You don't have an account?",
+                                    style: TextStyle(fontSize: 13),
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pushNamed(Register.routeName);
+                                      },
+                                      child: Text(
+                                        'Register',
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary),
+                                      ))
+                                ],
+                              ),
+                              const SizedBox(height: 10),
                               FormButton(
                                   text: 'Login', onClickHandler: _onUserLogin)
                             ],
                           ),
                         ),
-                      )),
-                ))
-          ],
-        );
-      }
-      return const Center(child: CircularProgressIndicator());
-    }));
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
+      ),
+    ));
   }
 }

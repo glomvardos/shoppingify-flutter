@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/authentication_bloc.dart';
 import 'package:shoppingify/screens/add_new_item_screen.dart';
 import 'package:shoppingify/screens/login.dart';
+import 'package:shoppingify/screens/register.dart';
 import 'package:shoppingify/widgets/bottom_bar/bottom_bar.dart';
 
 class App extends StatelessWidget {
@@ -17,15 +18,17 @@ class App extends StatelessWidget {
             ColorScheme.fromSwatch().copyWith(primary: const Color(0xFFF9A109)),
         fontFamily: 'Quicksand',
       ),
-    
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-          builder: (context, state) {
-        if (state is AuthenticationSuccess) {
-          return const BottomNavBar();
-        }
-        return const Login();
-      }),
+        builder: (context, state) {
+          if (state is AuthenticationSuccess) {
+            return const BottomNavBar();
+          }
+          return const Login();
+        },
+      ),
       routes: {
+        Login.routeName: (_) => const Login(),
+        Register.routeName: (_) => const Register(),
         AddNewItemScreen.routeName: (_) => const AddNewItemScreen(),
       },
     );

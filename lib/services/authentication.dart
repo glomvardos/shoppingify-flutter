@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoppingify/config.dart';
+part 'exception.dart';
 
 abstract class AuthenticationService {
-  String? isAuthenticated();
+  Future<String?> isAuthenticated();
   Future<String?> login(String email, String password);
-  Future<String?> register(
+  Future<bool> register(
       String email, String password, String firstName, String lastName);
   Future<void> logout();
 }
@@ -14,9 +16,10 @@ class AuthenticationApiService implements AuthenticationService {
   final Dio _client = Dio();
 
   @override
-  isAuthenticated() async {
+  Future<String?> isAuthenticated() async {
     final SharedPreferences _prefs = await SharedPreferences.getInstance();
     final token = _prefs.getString('token');
+
     return token;
   }
 
@@ -29,18 +32,28 @@ class AuthenticationApiService implements AuthenticationService {
 
       await _prefs.setString('token', response.data['access']);
       final token = _prefs.getString('token');
-
       return token;
     } on DioError catch (error) {
-      error.response?.data['message'] ?? error.message;
+      throw AuthenticationException(message: error.response!.data['message']);
     }
   }
 
   @override
-  Future<String?> register(
-      String email, String password, String firstName, String lastName) async {
-    Response response = await _client.post('');
-    return '';
+  Future<bool> register(
+    String firstName,
+    String lastName,
+    String email,
+    String password,
+  ) async {
+    Response response =
+        await _client.post('${Config.API_URL}/auth/signup', data: {
+      "email": email,
+      "password": password,
+      "firstName": firstName,
+      "lastName": lastName
+    });
+
+    return response.data['access'] != null ? true : false;
   }
 
   @override

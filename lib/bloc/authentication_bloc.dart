@@ -12,10 +12,10 @@ class AuthenticationBloc
 
   AuthenticationBloc(this._authenticationService)
       : super(AuthenticationInitial()) {
-    on<Initialize>((event, emit) {
+    on<Initialize>((event, emit) async {
       emit(AuthenticationLoading());
 
-      final token = _authenticationService.isAuthenticated();
+      final token = await _authenticationService.isAuthenticated();
 
       emit(token != null
           ? AuthenticationSuccess(token)
@@ -30,9 +30,13 @@ class AuthenticationBloc
 
         emit(token != null
             ? AuthenticationSuccess(token)
-            : const AuthenticationFailure(message: 'Login failed'));
+            : AuthenticationNotAuthenticated());
+      } on AuthenticationException catch (e) {
+        emit(AuthenticationFailure(message: e.message));
+        emit(AuthenticationNotAuthenticated());
       } catch (error) {
         emit(const AuthenticationFailure(message: 'An has occurred'));
+        emit(AuthenticationNotAuthenticated());
       }
     });
 
