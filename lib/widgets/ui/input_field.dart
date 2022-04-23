@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 
 class InputField extends StatelessWidget {
-  const InputField(
-      {Key? key,
-      required this.labelText,
-      required this.controller,
-      required this.obscureText,
-      required this.keyboardType,
-      required this.validator})
-      : super(key: key);
+  const InputField({
+    Key? key,
+    required this.labelText,
+    required this.controller,
+    required this.obscureText,
+    required this.keyboardType,
+    required this.validator,
+    this.inputLines = 1,
+  }) : super(key: key);
   final String labelText;
   final TextEditingController controller;
   final bool obscureText;
   final TextInputType keyboardType;
   final FormFieldValidator<String> validator;
+  final int inputLines;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: inputLines,
       obscureText: obscureText,
       controller: controller,
       keyboardType: keyboardType,
@@ -44,7 +47,9 @@ class InputField extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         labelText: labelText,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+        alignLabelWithHint: true,
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       ),
     );
   }
