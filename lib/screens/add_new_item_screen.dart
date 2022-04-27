@@ -48,7 +48,7 @@ class _AddNewItemScreenState extends State<AddNewItemScreen> {
             imageUrl: _imageController.text,
             category: _categoryController.text));
 
-        Navigator.of(context).pop();
+        Navigator.of(context).pushNamed('/');
 
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
