@@ -11,4 +11,12 @@ class ApiService {
 
     return response;
   }
+
+  Future<List<Item>> fetchItems() async {
+    final Response response = await _dio.get('/category/item');
+
+    return (response.data['items'] as List)
+        .map((item) => Item.fromJson(item))
+        .toList();
+  }
 }
