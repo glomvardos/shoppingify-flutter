@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/authentication_bloc.dart';
 import 'package:shoppingify/screens/add_new_item_screen.dart';
+import 'package:shoppingify/screens/item_screen.dart';
 import 'package:shoppingify/screens/login.dart';
 import 'package:shoppingify/screens/register.dart';
 import 'package:shoppingify/widgets/bottom_bar/bottom_bar.dart';
@@ -30,6 +31,7 @@ class App extends StatelessWidget {
         Login.routeName: (_) => const Login(),
         Register.routeName: (_) => const Register(),
         AddNewItemScreen.routeName: (_) => const AddNewItemScreen(),
+        ItemScreen.routeName: (_) => const ItemScreen(),
       },
     );
   }
