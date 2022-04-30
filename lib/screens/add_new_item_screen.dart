@@ -48,11 +48,10 @@ class _AddNewItemScreenState extends State<AddNewItemScreen> {
             imageUrl: _imageController.text,
             category: _categoryController.text));
 
-        Navigator.of(context).pushNamed('/');
+        Navigator.of(context).popAndPushNamed('/');
 
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            behavior: SnackBarBehavior.floating,
             backgroundColor: Colors.green,
             content: Text('Item has been added successfully'),
           ),

@@ -19,4 +19,10 @@ class ApiService {
         .map((item) => Item.fromJson(item))
         .toList();
   }
+
+  Future<Response> deleteItem(int id) async {
+    final Response response = await _dio.delete('/category/item/$id');
+
+    return response;
+  }
 }

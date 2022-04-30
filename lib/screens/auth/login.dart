@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/authentication_bloc.dart';
-import 'package:shoppingify/screens/register.dart';
+import 'package:shoppingify/screens/auth/register.dart';
 import 'package:shoppingify/widgets/ui/form_button.dart';
 import 'package:shoppingify/widgets/ui/input_field.dart';
 import 'package:shoppingify/widgets/ui/label.dart';

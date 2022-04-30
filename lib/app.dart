@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/authentication_bloc.dart';
 import 'package:shoppingify/screens/add_new_item_screen.dart';
 import 'package:shoppingify/screens/item_screen.dart';
-import 'package:shoppingify/screens/login.dart';
-import 'package:shoppingify/screens/register.dart';
+import 'package:shoppingify/screens/auth/login.dart';
+import 'package:shoppingify/screens/auth/register.dart';
 import 'package:shoppingify/widgets/bottom_bar/bottom_bar.dart';
 
 class App extends StatelessWidget {
