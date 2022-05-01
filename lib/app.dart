@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shoppingify/bloc/authentication_bloc.dart';
+import 'package:shoppingify/bloc/auth/authentication_bloc.dart';
 import 'package:shoppingify/screens/add_new_item_screen.dart';
 import 'package:shoppingify/screens/item_screen.dart';
 import 'package:shoppingify/screens/auth/login.dart';
 import 'package:shoppingify/screens/auth/register.dart';
+import 'package:shoppingify/screens/shopping_list_screen.dart';
 import 'package:shoppingify/widgets/bottom_bar/bottom_bar.dart';
 
 class App extends StatelessWidget {
@@ -32,6 +33,7 @@ class App extends StatelessWidget {
         Register.routeName: (_) => const Register(),
         AddNewItemScreen.routeName: (_) => const AddNewItemScreen(),
         ItemScreen.routeName: (_) => const ItemScreen(),
+        ShoppingListScreen.routeName: (_) => const ShoppingListScreen(),
       },
     );
   }

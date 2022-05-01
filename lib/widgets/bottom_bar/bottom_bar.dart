@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shoppingify/screens/add_new_item_screen.dart';
 import 'package:shoppingify/screens/categories_screen.dart';
 import 'package:shoppingify/screens/history_screen.dart';
+import 'package:shoppingify/screens/shopping_list_screen.dart';
 import 'package:shoppingify/screens/statistics_screen.dart';
 import 'package:shoppingify/widgets/drawer/drawer_menu.dart';
 
@@ -32,6 +33,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return Scaffold(
       drawer: const DrawerMenu(),
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.of(context).pushNamed(AddNewItemScreen.routeName);
+            },
+          ),
+        ],
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
@@ -68,10 +77,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
       body: _screens[_selectedPageIndex],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(AddNewItemScreen.routeName);
+          Navigator.of(context).pushNamed(ShoppingListScreen.routeName);
         },
-        backgroundColor: Colors.black,
-        child: const Icon(Icons.add),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        child: const Icon(Icons.shopping_cart),
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,

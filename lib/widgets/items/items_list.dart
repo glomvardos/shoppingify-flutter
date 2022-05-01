@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
 import 'package:shoppingify/models/item.dart';
 import 'package:shoppingify/screens/item_screen.dart';
 
@@ -53,7 +55,10 @@ class ItemsList extends StatelessWidget {
                                     fontSize: 14, fontWeight: FontWeight.w500),
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  BlocProvider.of<ShoppingListBloc>(context)
+                                      .add(AddItem(item: value));
+                                },
                                 constraints:
                                     const BoxConstraints(maxHeight: 36),
                                 icon: const Icon(

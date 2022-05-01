@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
 import 'package:shoppingify/enums/button-type.dart';
+import 'package:shoppingify/models/item.dart';
 import 'package:shoppingify/services/api/api.dart';
 import 'package:shoppingify/widgets/ui/button.dart';
 
@@ -132,9 +135,13 @@ class _ItemScreenState extends State<ItemScreen> {
                             onPressedHandler: () => _onDeleteItem(item['id'])),
                         const SizedBox(width: 20),
                         Button(
-                            type: ButtonType.primary,
-                            text: 'Add to list',
-                            onPressedHandler: () {}),
+                          type: ButtonType.primary,
+                          text: 'Add to list',
+                          onPressedHandler: () =>
+                              BlocProvider.of<ShoppingListBloc>(context).add(
+                            AddItem(item: item),
+                          ),
+                        ),
                       ],
                     ),
                   )
