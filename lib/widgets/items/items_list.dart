@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
-import 'package:shoppingify/models/item.dart';
+import 'package:shoppingify/helpers/StringMethods.dart';
 import 'package:shoppingify/screens/item_screen.dart';
 
 class ItemsList extends StatelessWidget {
@@ -11,9 +11,6 @@ class ItemsList extends StatelessWidget {
   final String categoryName;
   final List<Map<String, dynamic>> item;
 
-  String capitalizeString(String text) =>
-      text[0].toUpperCase() + text.substring(1);
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +19,7 @@ class ItemsList extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(capitalizeString(categoryName),
+          Text(StringMethods.capitalizeString(categoryName),
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -50,7 +47,7 @@ class ItemsList extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                capitalizeString(value['name']),
+                                StringMethods.capitalizeString(value['name']),
                                 style: const TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w500),
                               ),

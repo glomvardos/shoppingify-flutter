@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
 import 'package:shoppingify/enums/button-type.dart';
-import 'package:shoppingify/models/item.dart';
+import 'package:shoppingify/helpers/StringMethods.dart';
 import 'package:shoppingify/services/api/api.dart';
 import 'package:shoppingify/widgets/ui/button.dart';
 
@@ -49,8 +49,6 @@ class _ItemScreenState extends State<ItemScreen> {
     }
   }
 
-  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
-
   @override
   Widget build(BuildContext context) {
     final item =
@@ -82,7 +80,8 @@ class _ItemScreenState extends State<ItemScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  capitalize(item['category']),
+                                  StringMethods.capitalizeString(
+                                      item['category']),
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,
@@ -92,7 +91,7 @@ class _ItemScreenState extends State<ItemScreen> {
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
-                                  capitalize(item['name']),
+                                  StringMethods.capitalizeString(item['name']),
                                   style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w600,
