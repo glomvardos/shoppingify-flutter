@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
-import 'package:shoppingify/helpers/StringMethods.dart';
+import 'package:shoppingify/helpers/string_methods.dart';
 import 'package:shoppingify/screens/item_screen.dart';
 
 class ItemsList extends StatelessWidget {
@@ -22,7 +22,7 @@ class ItemsList extends StatelessWidget {
           Text(StringMethods.capitalizeString(categoryName),
               style: const TextStyle(
                 fontSize: 18,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
               )),
           const SizedBox(height: 5),
           Wrap(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
 import 'package:shoppingify/enums/button-type.dart';
-import 'package:shoppingify/helpers/StringMethods.dart';
+import 'package:shoppingify/helpers/string_methods.dart';
 import 'package:shoppingify/services/api/api.dart';
 import 'package:shoppingify/widgets/ui/button.dart';
 

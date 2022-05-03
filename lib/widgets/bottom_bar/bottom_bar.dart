@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoppingify/screens/add_new_item_screen.dart';
 import 'package:shoppingify/screens/categories_screen.dart';
 import 'package:shoppingify/screens/history_screen.dart';
@@ -14,6 +15,8 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   final List<Widget> _screens = [
     CategoriesScreen(),
     const HistoryScreen(),
@@ -31,29 +34,43 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const DrawerMenu(),
+      key: _scaffoldKey,
+      endDrawer: const DrawerMenu(),
       appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SvgPicture.asset(
+            'assets/images/logo.svg',
+          ),
+        ),
         actions: [
           IconButton(
+            splashRadius: 1,
             icon: const Icon(Icons.add),
             onPressed: () {
               Navigator.of(context).pushNamed(AddNewItemScreen.routeName);
             },
           ),
+          IconButton(
+            splashRadius: 1,
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              setState(() {
+                _scaffoldKey.currentState!.openEndDrawer();
+              });
+            },
+          ),
         ],
-        centerTitle: true,
+        centerTitle: false,
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(
-          _selectedPageIndex == 0
-              ? 'Categories'
-              : _selectedPageIndex == 1
-                  ? 'History'
-                  : 'Statistics',
+        title: const Text(
+          'Shoppingify',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         currentIndex: _selectedPageIndex,
         backgroundColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: Colors.white,
