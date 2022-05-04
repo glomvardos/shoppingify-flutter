@@ -6,7 +6,7 @@ abstract class ShoppingListEvent {}
 class InitialItems extends ShoppingListEvent {}
 
 class AddItem extends ShoppingListEvent {
-  final Map<String, dynamic> item;
+  final Item item;
 
   AddItem({required this.item});
 }

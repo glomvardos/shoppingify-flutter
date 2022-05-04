@@ -20,28 +20,20 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         future: _api.fetchItems(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final categoriesMap =
-                snapshot.data!.map((item) => item.keyCategory);
-
-            final Map<String, List<Map<String, dynamic>>> uniqueCategories = {};
-
-            categoriesMap.forEach((item) {
-              item.keys.forEach((key) {
-                if (!uniqueCategories.containsKey(key)) {
-                  uniqueCategories[key] = [];
-                }
-                item.values.forEach((value) {
-                  if (value['category'] == key) {
-                    uniqueCategories[key]!.add(value);
-                  }
-                });
-              });
-            });
-
+            final List<Item> allItems = snapshot.data!;
+            final Map<String, List<Item>> uniqueCategories = {};
+            for (var item in allItems) {
+              if (!uniqueCategories.containsKey(item.category)) {
+                uniqueCategories[item.category] = [item];
+              } else {
+                uniqueCategories[item.category]!.add(item);
+              }
+            }
             List<Widget> categories = <Widget>[];
             uniqueCategories.forEach((key, value) {
               categories.add(ItemsList(categoryName: key, item: value));
             });
+
             return Column(
               children: [
                 Expanded(

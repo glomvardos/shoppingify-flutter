@@ -4,8 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
 import 'package:shoppingify/enums/button-type.dart';
 import 'package:shoppingify/helpers/string_methods.dart';
+import 'package:shoppingify/models/item.dart';
 import 'package:shoppingify/services/api/api.dart';
-import 'package:shoppingify/widgets/ui/button.dart';
+import 'package:shoppingify/widgets/ui/buttons/button.dart';
 
 class ItemScreen extends StatefulWidget {
   const ItemScreen({Key? key}) : super(key: key);
@@ -51,8 +52,7 @@ class _ItemScreenState extends State<ItemScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final item =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final item = ModalRoute.of(context)!.settings.arguments as Item;
     return Scaffold(
       body: SafeArea(
         child: _isLoading
@@ -70,7 +70,7 @@ class _ItemScreenState extends State<ItemScreen> {
                             width: double.infinity,
                             height: 250,
                             child: Image.network(
-                              item['imageUrl'],
+                              item.imageUrl,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -80,8 +80,7 @@ class _ItemScreenState extends State<ItemScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  StringMethods.capitalizeString(
-                                      item['category']),
+                                  StringMethods.capitalizeString(item.category),
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,
@@ -91,7 +90,7 @@ class _ItemScreenState extends State<ItemScreen> {
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
-                                  StringMethods.capitalizeString(item['name']),
+                                  StringMethods.capitalizeString(item.name),
                                   style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w600,
@@ -99,7 +98,7 @@ class _ItemScreenState extends State<ItemScreen> {
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
-                                  item['note'],
+                                  item.note,
                                   style: const TextStyle(
                                       fontSize: 14,
                                       height: 1.5,
@@ -131,7 +130,7 @@ class _ItemScreenState extends State<ItemScreen> {
                         Button(
                             type: ButtonType.secondary,
                             text: 'delete',
-                            onPressedHandler: () => _onDeleteItem(item['id'])),
+                            onPressedHandler: () => _onDeleteItem(item.id!)),
                         const SizedBox(width: 20),
                         Button(
                           type: ButtonType.primary,

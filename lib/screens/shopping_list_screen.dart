@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
+import 'package:shoppingify/models/item.dart';
+import 'package:shoppingify/widgets/ui/buttons/save_list_button.dart';
 import 'package:shoppingify/widgets/ui/shopping_list_header.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -19,7 +21,17 @@ class ShoppingListScreen extends StatelessWidget {
           child: BlocBuilder<ShoppingListBloc, ShoppingListState>(
             builder: (context, state) {
               if (state is ShoppingListLoaded) {
-                print(state.items);
+                final Map<String, List<Item>> transformedItems = {};
+                for (var item in state.items) {
+                  if (!transformedItems.containsKey(item.category)) {
+                    transformedItems[item.category] = [item];
+                  } else {
+                    transformedItems[item.category]!.add(item);
+                  }
+                }
+
+                print('test $transformedItems');
+
                 return state.items.isEmpty
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,7 +58,31 @@ class ShoppingListScreen extends StatelessWidget {
                           ),
                         ],
                       )
-                    : Text('Loaded');
+                    : Column(
+                        children: [
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  const ShoppingListHeader(),
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        top: 20, bottom: 30),
+                                    width: 310,
+                                    child: const Text(
+                                      'Shopping list',
+                                      style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SaveListButton(),
+                        ],
+                      );
               }
               return const Center(
                 child: CircularProgressIndicator(),

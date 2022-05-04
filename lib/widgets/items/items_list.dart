@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
 import 'package:shoppingify/helpers/string_methods.dart';
+import 'package:shoppingify/models/item.dart';
 import 'package:shoppingify/screens/item_screen.dart';
 
 class ItemsList extends StatelessWidget {
@@ -9,7 +10,7 @@ class ItemsList extends StatelessWidget {
       : super(key: key);
 
   final String categoryName;
-  final List<Map<String, dynamic>> item;
+  final List<Item> item;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class ItemsList extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                StringMethods.capitalizeString(value['name']),
+                                StringMethods.capitalizeString(value.name),
                                 style: const TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w500),
                               ),

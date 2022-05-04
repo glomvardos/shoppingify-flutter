@@ -1,16 +1,15 @@
 class Item {
-  int? id;
-  DateTime? createdAt;
-  String name;
-  String note;
-  String imageUrl;
-  String category;
-  Map<String, Map<String, dynamic>> keyCategory;
+  final int? id;
+  final DateTime? createdAt;
+  final String name;
+  final String note;
+  final String imageUrl;
+  final String category;
+  int quantity = 1;
 
   Item({
     this.id,
     this.createdAt,
-    this.keyCategory = const {},
     required this.name,
     required this.note,
     required this.imageUrl,
@@ -18,15 +17,6 @@ class Item {
   });
 
   // add category to categories list
-  static Map<String, Map<String, dynamic>> addCategory(
-      Map<String, dynamic> json) {
-    Map<String, Map<String, dynamic>> newCategory = {};
-    String category = json['category'];
-
-    newCategory[category] = json;
-
-    return newCategory;
-  }
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
         id: json["id"],
@@ -35,7 +25,6 @@ class Item {
         note: json["note"],
         imageUrl: json["imageUrl"],
         category: json["category"],
-        keyCategory: addCategory(json),
       );
 
   Map<String, dynamic> toJson() => {

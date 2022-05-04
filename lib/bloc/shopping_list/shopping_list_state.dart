@@ -13,7 +13,7 @@ class ShoppingListInitial extends ShoppingListState {}
 class ShoppingListLoading extends ShoppingListState {}
 
 class ShoppingListLoaded extends ShoppingListState {
-  final List<Map<String, dynamic>> items;
+  final List<Item> items;
 
   const ShoppingListLoaded({required this.items});
 

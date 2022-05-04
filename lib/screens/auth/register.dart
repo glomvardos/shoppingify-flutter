@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/screens/auth/login.dart';
 import 'package:shoppingify/services/authentication.dart';
-import 'package:shoppingify/widgets/ui/form_button.dart';
+import 'package:shoppingify/widgets/ui/buttons/form_button.dart';
 import 'package:shoppingify/widgets/ui/input_field.dart';
 import 'package:shoppingify/widgets/ui/label.dart';
 

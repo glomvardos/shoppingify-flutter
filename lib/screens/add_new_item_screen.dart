@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shoppingify/enums/button-type.dart';
 import 'package:shoppingify/models/item.dart';
 import 'package:shoppingify/services/api/api.dart';
-import 'package:shoppingify/widgets/ui/button.dart';
+import 'package:shoppingify/widgets/ui/buttons/button.dart';
 import 'package:shoppingify/widgets/ui/input_field.dart';
 import 'package:shoppingify/widgets/ui/label.dart';
 
