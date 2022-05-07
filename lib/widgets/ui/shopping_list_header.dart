@@ -16,7 +16,6 @@ class ShoppingListHeader extends StatelessWidget {
           ),
           margin: const EdgeInsets.only(top: 30),
           padding: const EdgeInsets.only(top: 17, right: 20),
-          width: 310,
           height: 130,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,

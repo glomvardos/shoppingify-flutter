@@ -14,13 +14,19 @@ class ShoppingListBloc extends Bloc<ShoppingListEvent, ShoppingListState> {
 
     on<AddItem>((event, emit) {
       final state = this.state;
+
       if (state is ShoppingListLoaded) {
-        if (state.items.contains(event.item)) {
+        final items = [...state.items];
+        final isAlreadyAdded = items.any((item) => item.id == event.item.id);
+
+        if (isAlreadyAdded == true) {
           // if the item is already in the list, increment the quantity
-          final items = [...state.items];
-          final index = items.indexOf(event.item);
-          event.item.quantity += 1;
-          items[index] = event.item;
+          final findAddedItem =
+              items.firstWhere((item) => item.id == event.item.id);
+          final index = items.indexWhere((item) => item.id == event.item.id);
+
+          findAddedItem.quantity += 1;
+          items[index] = findAddedItem;
 
           emit(ShoppingListLoaded(items: items));
         } else {

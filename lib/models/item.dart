@@ -33,4 +33,9 @@ class Item {
         "imageUrl": imageUrl,
         "category": category,
       };
+
+  @override
+  String toString() {
+    return 'Item{id: $id, createdAt: $createdAt, name: $name, note: $note, imageUrl: $imageUrl, category: $category, quantity: $quantity}';
+  }
 }

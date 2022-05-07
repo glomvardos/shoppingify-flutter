@@ -35,7 +35,7 @@ class AuthenticationBloc
         emit(AuthenticationFailure(message: e.message));
         emit(AuthenticationNotAuthenticated());
       } catch (error) {
-        emit(const AuthenticationFailure(message: 'An has occurred'));
+        emit(const AuthenticationFailure(message: 'An error has occurred'));
         emit(AuthenticationNotAuthenticated());
       }
     });
