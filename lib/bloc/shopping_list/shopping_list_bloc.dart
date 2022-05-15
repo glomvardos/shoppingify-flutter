@@ -34,5 +34,43 @@ class ShoppingListBloc extends Bloc<ShoppingListEvent, ShoppingListState> {
         }
       }
     });
+
+    on<IncrementQuantity>((event, emit) {
+      final state = this.state;
+      if (state is ShoppingListLoaded) {
+        event.item.quantity += 1;
+        final index = state.items.indexOf(event.item);
+        state.items.removeAt(index);
+
+        emit(
+          ShoppingListLoaded(
+            items: List.from(state.items)..insert(index, event.item),
+          ),
+        );
+      }
+    });
+
+    on<DecrementQuantity>((event, emit) {
+      final state = this.state;
+      if (state is ShoppingListLoaded) {
+        if (event.item.quantity == 1) {
+          emit(
+            ShoppingListLoaded(
+              items: List.from(state.items)..remove(event.item),
+            ),
+          );
+        } else {
+          event.item.quantity -= 1;
+          final index = state.items.indexOf(event.item);
+          state.items.removeAt(index);
+
+          emit(
+            ShoppingListLoaded(
+              items: List.from(state.items)..insert(index, event.item),
+            ),
+          );
+        }
+      }
+    });
   }
 }

@@ -1,6 +1,5 @@
 part of 'shopping_list_bloc.dart';
 
-@immutable
 abstract class ShoppingListState extends Equatable {
   const ShoppingListState();
 

@@ -32,7 +32,7 @@ class ShoppingListScreen extends StatelessWidget {
                 }
 
                 final List<Widget> displayItems = [];
-                print(transformedItems);
+
                 transformedItems.forEach((category, items) {
                   displayItems.add(
                       ShoppingListItems(categoryName: category, items: items));
