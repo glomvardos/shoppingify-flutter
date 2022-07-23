@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/screens/auth/login.dart';
-import 'package:shoppingify/services/authentication.dart';
+import 'package:shoppingify/services/interfaces/auth_interface.dart';
 import 'package:shoppingify/widgets/ui/buttons/form_button.dart';
 import 'package:shoppingify/widgets/ui/input_field.dart';
 import 'package:shoppingify/widgets/ui/label.dart';
@@ -25,11 +25,11 @@ class _RegisterState extends State<Register> {
 
   @override
   void dispose() {
-    super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _firstnameController.dispose();
     _lastnameController.dispose();
+    super.dispose();
   }
 
   @override
@@ -58,7 +58,7 @@ class _RegisterState extends State<Register> {
             SnackBar(
               backgroundColor: Colors.redAccent,
               content: Text(e.response != null
-                  ? e.response!.data['message'] ?? 'Something went wrong'
+                  ? e.response!.data['message'][0] ?? 'Something went wrong'
                   : 'Something went wrong'),
             ),
           );

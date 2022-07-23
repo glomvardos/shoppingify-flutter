@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/enums/button-type.dart';
 import 'package:shoppingify/models/item.dart';
-import 'package:shoppingify/services/api/api.dart';
+import 'package:shoppingify/services/interfaces/api_interface.dart';
 import 'package:shoppingify/widgets/ui/buttons/button.dart';
 import 'package:shoppingify/widgets/ui/input_field.dart';
 import 'package:shoppingify/widgets/ui/label.dart';
@@ -16,8 +17,6 @@ class AddNewItemScreen extends StatefulWidget {
 }
 
 class _AddNewItemScreenState extends State<AddNewItemScreen> {
-  final _api = ApiService();
-
   bool _autoValidate = false;
   bool _isLoading = false;
 
@@ -41,8 +40,7 @@ class _AddNewItemScreenState extends State<AddNewItemScreen> {
     if (_formKey.currentState!.validate()) {
       try {
         setState(() => _isLoading = true);
-
-        await _api.addNewItem(Item(
+        await context.read<ApiService>().addNewItem(Item(
             name: _nameController.text,
             note: _noteController.text,
             imageUrl: _imageController.text,

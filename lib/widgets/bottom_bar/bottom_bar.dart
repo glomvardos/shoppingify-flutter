@@ -18,7 +18,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   final List<Widget> _screens = [
-    CategoriesScreen(),
+    const CategoriesScreen(),
     const HistoryScreen(),
     const StatisticsScreen(),
   ];

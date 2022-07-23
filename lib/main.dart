@@ -3,14 +3,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/app.dart';
 import 'package:shoppingify/bloc/auth/authentication_bloc.dart';
 import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
-import 'package:shoppingify/services/authentication.dart';
+import 'package:shoppingify/services/api/categories_api.dart';
+import 'package:shoppingify/services/auth/authentication.dart';
+import 'package:shoppingify/services/interfaces/api_interface.dart';
+import 'package:shoppingify/services/interfaces/auth_interface.dart';
+import 'package:shoppingify/utils/shared_prefs.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await sharedPrefs.init();
   runApp(
     MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AuthenticationService>(
-          create: (context) => AuthenticationApiService(),
+          create: (context) => AuthenticationApi(),
+        ),
+        RepositoryProvider<ApiService>(
+          create: (context) => CategoriesApi(
+              client: context.read<AuthenticationService>().client),
         ),
       ],
       child: MultiBlocProvider(

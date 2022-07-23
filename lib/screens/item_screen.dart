@@ -5,7 +5,7 @@ import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
 import 'package:shoppingify/enums/button-type.dart';
 import 'package:shoppingify/helpers/string_methods.dart';
 import 'package:shoppingify/models/item.dart';
-import 'package:shoppingify/services/api/api.dart';
+import 'package:shoppingify/services/interfaces/api_interface.dart';
 import 'package:shoppingify/widgets/ui/buttons/button.dart';
 
 class ItemScreen extends StatefulWidget {
@@ -18,14 +18,13 @@ class ItemScreen extends StatefulWidget {
 
 class _ItemScreenState extends State<ItemScreen> {
   bool _isLoading = false;
-  final ApiService _api = ApiService();
 
   _onDeleteItem(int id) async {
     try {
       setState(() {
         _isLoading = true;
       });
-      await _api.deleteItem(id);
+      await context.read<ApiService>().deleteItem(id);
       Navigator.of(context).popAndPushNamed('/');
 
       ScaffoldMessenger.of(context).showSnackBar(

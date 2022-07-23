@@ -12,13 +12,7 @@ class AuthenticationInitial extends AuthenticationState {}
 
 class AuthenticationLoading extends AuthenticationState {}
 
-class AuthenticationSuccess extends AuthenticationState {
-  final String token;
-  const AuthenticationSuccess(this.token);
-
-  @override
-  List<Object> get props => [token];
-}
+class AuthenticationSuccess extends AuthenticationState {}
 
 class AuthenticationFailure extends AuthenticationState {
   final String message;

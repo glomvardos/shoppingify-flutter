@@ -1,4 +1,4 @@
-part of 'authentication.dart';
+part of '../auth/authentication.dart';
 
 class AuthenticationException implements Exception {
   final String message;
