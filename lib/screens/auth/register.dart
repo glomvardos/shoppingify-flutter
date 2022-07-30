@@ -53,13 +53,12 @@ class _RegisterState extends State<Register> {
               content: Text('User registered successfully'),
             ),
           );
-        } on DioError catch (e) {
+        } on DioError catch (error) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.redAccent,
-              content: Text(e.response != null
-                  ? e.response!.data['message'][0] ?? 'Something went wrong'
-                  : 'Something went wrong'),
+              content: Text(
+                  error.response!.data['message'] ?? 'Something went wrong'),
             ),
           );
         } finally {

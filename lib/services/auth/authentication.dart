@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:shoppingify/config.dart';
 import 'package:shoppingify/services/interfaces/auth_interface.dart';
@@ -17,20 +19,35 @@ class AuthenticationApi implements AuthenticationService {
     _client.options.headers['Authorization'] =
         'Bearer ${sharedPrefs.getKey('token')}';
 
-    return sharedPrefs.getKey('token');
+    final String? token = sharedPrefs.getKey('token');
+
+    return token;
+  }
+
+  @override
+  Future<void> getAuthUser() async {
+    try {
+      final response = await _client.get('/auth/user');
+      await sharedPrefs.addKey('user', json.encode(response.data));
+    } on DioError catch (error) {
+      throw AuthenticationException(message: error.response!.data['message']);
+    }
   }
 
   @override
   Future<String?> login(String email, String password) async {
     try {
-      Response response = await _client.post('${Config.API_URL}/auth/signin',
-          data: {"email": email, "password": password});
+      Response response = await _client
+          .post('/auth/signin', data: {"email": email, "password": password});
       await sharedPrefs.addKey('token', response.data['access']);
+      final String? token = sharedPrefs.getKey('token');
+      _client.options.headers['Authorization'] = 'Bearer $token';
 
-      _client.options.headers['Authorization'] =
-          'Bearer ${sharedPrefs.getKey('token')}';
+      if (token != null) {
+        await getAuthUser();
+      }
 
-      return sharedPrefs.getKey('token');
+      return token;
     } on DioError catch (error) {
       throw AuthenticationException(message: error.response!.data['message']);
     }
@@ -43,7 +60,7 @@ class AuthenticationApi implements AuthenticationService {
     String email,
     String password,
   ) async {
-    Response response = await _client.post('/auth/signup', data: {
+    final Response response = await _client.post('/auth/signup', data: {
       "email": email,
       "password": password,
       "firstName": firstName,
@@ -54,7 +71,18 @@ class AuthenticationApi implements AuthenticationService {
   }
 
   @override
+  Future<Response> deleteUser() async {
+    try {
+      final Response response = await _client.delete('/auth/user');
+      return response;
+    } on DioError {
+      rethrow;
+    }
+  }
+
+  @override
   Future<void> logout() async {
     await sharedPrefs.removeKey('token');
+    await sharedPrefs.removeKey('user');
   }
 }

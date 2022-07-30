@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/auth/authentication_bloc.dart';
+import 'package:shoppingify/screens/drawer/profile_screen.dart';
+import 'package:shoppingify/widgets/drawer/drawer_item.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key}) : super(key: key);
@@ -9,29 +11,33 @@ class DrawerMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.symmetric(horizontal: 30),
         children: [
-          const SizedBox(height: 30),
-          Text(
-            'Shoppingify',
-            style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary),
+          DrawerHeader(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Shoppingify',
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary),
+              ),
+            ],
+          )),
+          DrawerItem(
+            icon: Icons.account_circle,
+            text: 'Profile',
+            onTapHandler: () =>
+                Navigator.of(context).pushNamed(ProfileScreen.routeName),
           ),
-          const SizedBox(height: 30),
-          ListTile(
-            leading: const Icon(
-              Icons.logout_rounded,
-              size: 27,
-              color: Colors.black,
-            ),
-            title: const Text('Log out',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-            onTap: () {
-              BlocProvider.of<AuthenticationBloc>(context).add(LogoutEvent());
-            },
-          )
+          DrawerItem(
+            icon: Icons.logout_rounded,
+            text: 'Log out',
+            onTapHandler: () =>
+                BlocProvider.of<AuthenticationBloc>(context).add(LogoutEvent()),
+          ),
         ],
       ),
     );

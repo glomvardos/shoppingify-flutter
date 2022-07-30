@@ -54,12 +54,12 @@ class _AddNewItemScreenState extends State<AddNewItemScreen> {
             content: Text('Item has been added successfully'),
           ),
         );
-      } on DioError catch (e) {
+      } on DioError catch (error) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.redAccent,
             content:
-                Text(e.response!.data['message'] ?? 'Something went wrong'),
+                Text(error.response!.data['message'] ?? 'Something went wrong'),
           ),
         );
       } finally {

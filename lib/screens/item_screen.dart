@@ -33,13 +33,12 @@ class _ItemScreenState extends State<ItemScreen> {
           content: Text('Item has been deleted successfully'),
         ),
       );
-    } on DioError catch (e) {
+    } on DioError catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.redAccent,
-          content: Text(e.response != null
-              ? e.response!.data['message'] ?? 'Something went wrong'
-              : 'Something went wrong'),
+          content:
+              Text(error.response!.data['message'] ?? 'Something went wrong'),
         ),
       );
     } finally {
