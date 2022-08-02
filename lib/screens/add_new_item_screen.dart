@@ -40,7 +40,7 @@ class _AddNewItemScreenState extends State<AddNewItemScreen> {
     if (_formKey.currentState!.validate()) {
       try {
         setState(() => _isLoading = true);
-        await context.read<ApiService>().addNewItem(Item(
+        await context.read<CategoriesService>().addNewItem(Item(
             name: _nameController.text,
             note: _noteController.text,
             imageUrl: _imageController.text,

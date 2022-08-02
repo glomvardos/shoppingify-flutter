@@ -7,4 +7,6 @@ abstract class CategoriesService {
   Future<Response> deleteItem(int id);
 }
 
-abstract class ApiService implements CategoriesService {}
+abstract class ShoppingListService {
+  Future<Response> addNewList(List<Item> item, String name);
+}

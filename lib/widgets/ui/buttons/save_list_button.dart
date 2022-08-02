@@ -1,10 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
+import 'package:shoppingify/models/item.dart';
+import 'package:shoppingify/services/interfaces/api_interface.dart';
 
 class SaveListButton extends StatelessWidget {
-  const SaveListButton({Key? key}) : super(key: key);
+  SaveListButton({Key? key, required this.items}) : super(key: key);
+  final List<Item> items;
+  final TextEditingController _listName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    Future<void> onSubmitShoppingList() async {
+      if (_listName.text.trim().isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text('Please enter a name for the list'),
+          ),
+        );
+        return;
+      }
+
+      await context
+          .read<ShoppingListService>()
+          .addNewList(items, _listName.text)
+          .then((value) => {
+                context.read<ShoppingListBloc>().add(InitialItems()),
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    backgroundColor: Colors.green,
+                    content: Text('Your Shopping List has been saved!'),
+                  ),
+                )
+              })
+          .catchError((error) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.redAccent,
+          content:
+              Text(error.response!.data['message'] ?? 'Something went wrong'),
+        ));
+      });
+    }
+
     return Container(
       color: Colors.white,
       width: double.infinity,
@@ -22,9 +60,10 @@ class SaveListButton extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 20),
             child: Row(
               children: [
-                const Expanded(
+                Expanded(
                   child: TextField(
-                    decoration: InputDecoration(
+                    controller: _listName,
+                    decoration: const InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       errorStyle: TextStyle(fontSize: 12),
                       errorMaxLines: 1,
@@ -42,7 +81,7 @@ class SaveListButton extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: onSubmitShoppingList,
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all(
                         const EdgeInsets.symmetric(

@@ -16,7 +16,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Item>>(
-        future: context.read<ApiService>().fetchItems(),
+        future: context.read<CategoriesService>().fetchItems(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.isEmpty) {

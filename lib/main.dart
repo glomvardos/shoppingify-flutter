@@ -4,6 +4,7 @@ import 'package:shoppingify/app.dart';
 import 'package:shoppingify/bloc/auth/authentication_bloc.dart';
 import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
 import 'package:shoppingify/services/api/categories_api.dart';
+import 'package:shoppingify/services/api/shopping_list_api.dart';
 import 'package:shoppingify/services/auth/authentication.dart';
 import 'package:shoppingify/services/interfaces/api_interface.dart';
 import 'package:shoppingify/services/interfaces/auth_interface.dart';
@@ -18,8 +19,12 @@ void main() async {
         RepositoryProvider<AuthenticationService>(
           create: (context) => AuthenticationApi(),
         ),
-        RepositoryProvider<ApiService>(
+        RepositoryProvider<CategoriesService>(
           create: (context) => CategoriesApi(
+              client: context.read<AuthenticationService>().client),
+        ),
+        RepositoryProvider<ShoppingListService>(
+          create: (context) => ShoppingListApi(
               client: context.read<AuthenticationService>().client),
         ),
       ],

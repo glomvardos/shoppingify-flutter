@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:shoppingify/models/item.dart';
 import 'package:shoppingify/services/interfaces/api_interface.dart';
 
-class CategoriesApi implements ApiService {
+class CategoriesApi implements CategoriesService {
   final Dio client;
 
   CategoriesApi({required this.client});

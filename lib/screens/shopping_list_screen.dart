@@ -124,7 +124,9 @@ class ShoppingListScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SaveListButton(),
+                          SaveListButton(
+                            items: state.items,
+                          ),
                         ],
                       );
               }

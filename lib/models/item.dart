@@ -32,6 +32,7 @@ class Item {
         "note": note,
         "imageUrl": imageUrl,
         "category": category,
+        "quantity": quantity,
       };
 
   @override

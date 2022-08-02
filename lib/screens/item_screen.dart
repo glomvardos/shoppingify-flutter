@@ -24,7 +24,7 @@ class _ItemScreenState extends State<ItemScreen> {
       setState(() {
         _isLoading = true;
       });
-      await context.read<ApiService>().deleteItem(id);
+      await context.read<CategoriesService>().deleteItem(id);
       Navigator.of(context).popAndPushNamed('/');
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -37,8 +37,8 @@ class _ItemScreenState extends State<ItemScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.redAccent,
-          content:
-              Text(error.response!.data['message'] ?? 'Something went wrong'),
+          content: Text(
+              error.response!.data['message'][0] ?? 'Something went wrong'),
         ),
       );
     } finally {
