@@ -1,5 +1,5 @@
 class Item {
-  final int? id;
+  int? id;
   final DateTime? createdAt;
   final String name;
   final String note;
@@ -18,14 +18,21 @@ class Item {
 
   // add category to categories list
 
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
-        id: json["id"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        name: json["name"],
-        note: json["note"],
-        imageUrl: json["imageUrl"],
-        category: json["category"],
-      );
+  Item.fromJson(Map<String, dynamic> json)
+      : id = json["id"],
+        createdAt = DateTime.parse(json["createdAt"]),
+        name = json["name"],
+        note = json["note"],
+        imageUrl = json["imageUrl"],
+        category = json["category"];
+
+  Item.fromShoppingListJson(Map<String, dynamic> json)
+      : name = json["name"],
+        createdAt = DateTime.parse(json["createdAt"]),
+        note = json["note"],
+        imageUrl = json["imageUrl"],
+        category = json["category"],
+        quantity = json["quantity"];
 
   Map<String, dynamic> toJson() => {
         "name": name,
@@ -33,6 +40,7 @@ class Item {
         "imageUrl": imageUrl,
         "category": category,
         "quantity": quantity,
+        "createdAt": createdAt?.toIso8601String(),
       };
 
   @override

@@ -38,7 +38,7 @@ class SaveListButton extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.redAccent,
           content:
-              Text(error.response!.data['message'] ?? 'Something went wrong'),
+              Text(error.response?.data['message'] ?? 'Something went wrong'),
         ));
       });
     }

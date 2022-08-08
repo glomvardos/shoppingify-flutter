@@ -47,7 +47,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       setState(() {});
                     },
                     child: SingleChildScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(),
+                      physics: const ClampingScrollPhysics(),
                       padding: const EdgeInsets.all(20),
                       child: Column(
                         children: [
