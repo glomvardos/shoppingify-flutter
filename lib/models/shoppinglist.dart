@@ -2,7 +2,7 @@ import 'package:shoppingify/models/item.dart';
 
 class ShoppingList {
   final int? id;
-  final String createdAt;
+  final DateTime? createdAt;
   final String updatedAt;
   final String name;
   final List<Item> categories;
@@ -23,7 +23,7 @@ class ShoppingList {
 
   ShoppingList.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        createdAt = json['createdAt'],
+        createdAt = DateTime.parse(json["createdAt"]),
         updatedAt = json['updatedAt'],
         name = json['name'],
         categories = (json['categories'] as List)
