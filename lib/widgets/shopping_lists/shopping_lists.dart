@@ -19,19 +19,23 @@ class ShoppingLists extends StatelessWidget {
             'Shopping History',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
+          if (shoppingLists.isEmpty)
+            SizedBox(
+                height: MediaQuery.of(context).size.height * 0.65,
+                child: const Center(
+                    child: Text("You don't have any shopping lists"))),
           const SizedBox(height: 20),
-          SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: shoppingLists.isEmpty
-                ? const Center(child: Text("You don't have any shopping lists"))
-                : ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: shoppingLists.length,
-                    itemBuilder: (context, index) {
-                      return DisplayShoppingList(
-                          shoppingList: shoppingLists[index]);
-                    }),
-          ),
+          if (shoppingLists.isNotEmpty)
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.65,
+              child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: shoppingLists.length,
+                  itemBuilder: (context, index) {
+                    return DisplayShoppingList(
+                        shoppingList: shoppingLists[index]);
+                  }),
+            ),
         ],
       ),
     );
