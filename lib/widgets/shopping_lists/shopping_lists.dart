@@ -26,16 +26,14 @@ class ShoppingLists extends StatelessWidget {
                     child: Text("You don't have any shopping lists"))),
           const SizedBox(height: 20),
           if (shoppingLists.isNotEmpty)
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.65,
-              child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: shoppingLists.length,
-                  itemBuilder: (context, index) {
-                    return DisplayShoppingList(
-                        shoppingList: shoppingLists[index]);
-                  }),
-            ),
+            ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: shoppingLists.length,
+                itemBuilder: (context, index) {
+                  return DisplayShoppingList(
+                      shoppingList: shoppingLists[index]);
+                }),
         ],
       ),
     );

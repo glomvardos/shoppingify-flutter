@@ -14,7 +14,7 @@ class HistoryScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final shoppingLists = snapshot.data as List<ShoppingList>;
-
+            shoppingLists.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
             return ShoppingLists(shoppingLists: shoppingLists);
           }
           return const Center(

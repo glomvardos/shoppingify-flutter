@@ -6,6 +6,7 @@ import 'package:shoppingify/screens/drawer/profile_screen.dart';
 import 'package:shoppingify/screens/item_screen.dart';
 import 'package:shoppingify/screens/auth/login.dart';
 import 'package:shoppingify/screens/auth/register.dart';
+import 'package:shoppingify/screens/selected_shopping_list_screen.dart';
 import 'package:shoppingify/screens/shopping_list_screen.dart';
 import 'package:shoppingify/widgets/bottom_bar/bottom_bar.dart';
 
@@ -36,6 +37,8 @@ class App extends StatelessWidget {
         AddNewItemScreen.routeName: (_) => const AddNewItemScreen(),
         ItemScreen.routeName: (_) => const ItemScreen(),
         ShoppingListScreen.routeName: (_) => const ShoppingListScreen(),
+        SelectedShoppingListScreen.routeName: (_) =>
+            const SelectedShoppingListScreen(),
         ProfileScreen.routeName: (_) => ProfileScreen(),
       },
     );

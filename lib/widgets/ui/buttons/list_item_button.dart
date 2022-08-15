@@ -33,13 +33,23 @@ class ListItemButton extends StatelessWidget {
         ),
         onPressed: () => onClickHandler(),
         child: FittedBox(
-          child: Text(
-            '$quantity pcs',
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            child: Text(
+              '$quantity pcs',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+              ),
+              key: ValueKey(quantity),
             ),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return ScaleTransition(
+                scale: animation,
+                child: child,
+              );
+            },
           ),
         ),
       ),

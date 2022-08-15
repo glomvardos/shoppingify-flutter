@@ -27,40 +27,50 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
         style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
       ),
       trailing: _showButtons
-          ? Container(
-              width: 175,
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.white,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    color: Theme.of(context).colorScheme.primary,
-                    icon: const Icon(Icons.remove),
-                    onPressed: () {
-                      context.read<ShoppingListBloc>().add(
-                            DecrementQuantity(item: widget.item),
-                          );
-                    },
-                  ),
-                  ListItemButton(
-                    onClickHandler: onItemClickHandler,
-                    quantity: widget.item.quantity.toString(),
-                    isSelected: _showButtons,
-                  ),
-                  IconButton(
-                    color: Theme.of(context).colorScheme.primary,
-                    icon: const Icon(Icons.add),
-                    onPressed: () {
-                      context.read<ShoppingListBloc>().add(
-                            IncrementQuantity(item: widget.item),
-                          );
-                    },
-                  ),
-                ],
+          ? Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              child: SizedBox(
+                width: 175,
+                height: 50,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Material(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: IconButton(
+                        color: Theme.of(context).colorScheme.primary,
+                        icon: const Icon(Icons.remove),
+                        splashRadius: 30,
+                        onPressed: () {
+                          context.read<ShoppingListBloc>().add(
+                                DecrementQuantity(item: widget.item),
+                              );
+                        },
+                      ),
+                    ),
+                    ListItemButton(
+                      onClickHandler: onItemClickHandler,
+                      quantity: widget.item.quantity.toString(),
+                      isSelected: _showButtons,
+                    ),
+                    Material(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: IconButton(
+                        color: Theme.of(context).colorScheme.primary,
+                        icon: const Icon(Icons.add),
+                        splashRadius: 30,
+                        onPressed: () {
+                          context.read<ShoppingListBloc>().add(
+                                IncrementQuantity(item: widget.item),
+                              );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             )
           : ListItemButton(
