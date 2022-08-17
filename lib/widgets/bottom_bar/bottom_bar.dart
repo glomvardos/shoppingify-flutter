@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoppingify/screens/add_new_item_screen.dart';
-import 'package:shoppingify/screens/categories_screen.dart';
-import 'package:shoppingify/screens/history_screen.dart';
-import 'package:shoppingify/screens/shopping_list_screen.dart';
+import 'package:shoppingify/screens/categories/categories_screen.dart';
+import 'package:shoppingify/screens/history/history_screen.dart';
+import 'package:shoppingify/screens/shopping_list/shopping_list_screen.dart';
 import 'package:shoppingify/screens/statistics_screen.dart';
-import 'package:shoppingify/widgets/drawer/drawer_menu.dart';
+import 'package:shoppingify/screens/drawer/widgets/drawer_menu.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);

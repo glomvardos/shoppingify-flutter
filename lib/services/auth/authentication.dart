@@ -7,19 +7,19 @@ import 'package:shoppingify/utils/shared_prefs.dart';
 part 'exception.dart';
 
 class AuthenticationApi implements AuthenticationService {
-  final Dio _client;
-
-  AuthenticationApi() : _client = Dio(BaseOptions(baseUrl: Config.API_URL));
+  final Dio _client = Dio(BaseOptions(baseUrl: Config.API_URL));
 
   @override
   get client => _client;
 
   @override
   Future<String?> isAuthenticated() async {
-    _client.options.headers['Authorization'] =
-        'Bearer ${sharedPrefs.getKey('token')}';
-
     final String? token = sharedPrefs.getKey('token');
+
+    if (token != null) {
+      _client.options.headers['Authorization'] =
+          'Bearer ${sharedPrefs.getKey('token')}';
+    }
 
     return token;
   }
@@ -41,9 +41,9 @@ class AuthenticationApi implements AuthenticationService {
           .post('/auth/signin', data: {"email": email, "password": password});
       await sharedPrefs.addKey('token', response.data['access']);
       final String? token = sharedPrefs.getKey('token');
-      _client.options.headers['Authorization'] = 'Bearer $token';
 
       if (token != null) {
+        _client.options.headers['Authorization'] = 'Bearer $token';
         await getAuthUser();
       }
 

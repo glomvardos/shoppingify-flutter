@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoppingify/models/shoppinglist.dart';
 import 'package:intl/intl.dart';
+import 'package:shoppingify/screens/selected_shopping_list_screen.dart';
 
 class DisplayShoppingList extends StatelessWidget {
   const DisplayShoppingList({Key? key, required this.shoppingList})
@@ -39,8 +40,12 @@ class DisplayShoppingList extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 4,
         child: InkWell(
-          splashColor: shoppingListStatus(shoppingList)["color"],
-          onTap: () {},
+          splashColor: Theme.of(context).colorScheme.primary,
+          onTap: () {
+            Navigator.of(context).pushNamed(
+                SelectedShoppingListScreen.routeName,
+                arguments: shoppingList);
+          },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Row(

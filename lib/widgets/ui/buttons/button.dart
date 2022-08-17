@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shoppingify/enums/button-type.dart';
+import 'package:shoppingify/enums/button_type.dart';
 
 class Button extends StatelessWidget {
   const Button(

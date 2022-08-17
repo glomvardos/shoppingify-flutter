@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shoppingify/enums/button-type.dart';
+import 'package:shoppingify/enums/button_type.dart';
 import 'package:shoppingify/models/item.dart';
 import 'package:shoppingify/services/interfaces/api_interface.dart';
 import 'package:shoppingify/widgets/ui/buttons/button.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoppingify/helpers/string_methods.dart';
 import 'package:shoppingify/models/item.dart';
-import 'package:shoppingify/widgets/items/shopping_list_item.dart';
+import 'package:shoppingify/screens/shopping_list/widgets/shopping_list_item.dart';
 
 class ShoppingListItems extends StatelessWidget {
   const ShoppingListItems({

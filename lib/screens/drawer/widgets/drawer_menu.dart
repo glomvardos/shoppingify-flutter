@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/auth/authentication_bloc.dart';
 import 'package:shoppingify/screens/drawer/profile_screen.dart';
-import 'package:shoppingify/widgets/drawer/drawer_item.dart';
+import 'package:shoppingify/screens/drawer/widgets/drawer_item.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key}) : super(key: key);

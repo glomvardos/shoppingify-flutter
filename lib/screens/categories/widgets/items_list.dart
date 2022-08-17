@@ -29,12 +29,12 @@ class ItemsList extends StatelessWidget {
           Wrap(
             children: item
                 .map(
-                  (value) => SizedBox(
+                  (item) => SizedBox(
                     width: (MediaQuery.of(context).size.width * 0.50) - 20,
                     child: GestureDetector(
                       onTap: () {
                         Navigator.of(context)
-                            .pushNamed(ItemScreen.routeName, arguments: value);
+                            .pushNamed(ItemScreen.routeName, arguments: item);
                       },
                       child: Card(
                         shape: RoundedRectangleBorder(
@@ -48,14 +48,14 @@ class ItemsList extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                StringMethods.capitalizeString(value.name),
+                                StringMethods.capitalizeString(item.name),
                                 style: const TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w500),
                               ),
                               IconButton(
                                 onPressed: () {
                                   BlocProvider.of<ShoppingListBloc>(context)
-                                      .add(AddItem(item: value));
+                                      .add(AddItem(item: item));
                                 },
                                 constraints:
                                     const BoxConstraints(maxHeight: 36),

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
 import 'package:shoppingify/models/item.dart';
-import 'package:shoppingify/widgets/items/shopping_list_items.dart';
+import 'package:shoppingify/screens/shopping_list/widgets/shopping_list_items.dart';
+import 'package:shoppingify/widgets/ui/buttons/go_back_btn.dart';
 import 'package:shoppingify/widgets/ui/buttons/save_list_button.dart';
 import 'package:shoppingify/widgets/ui/shopping_list_header.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -77,37 +78,7 @@ class ShoppingListScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(height: 10),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      IconButton(
-                                        constraints:
-                                            const BoxConstraints(maxHeight: 36),
-                                        padding: const EdgeInsets.all(0),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        icon: const Icon(Icons.arrow_back),
-                                      ),
-                                      const SizedBox(width: 5),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text(
-                                          'Go back',
-                                          style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  const GoBackBtn(),
                                   const ShoppingListHeader(),
                                   const SizedBox(height: 30),
                                   const Text(

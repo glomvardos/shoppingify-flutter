@@ -74,7 +74,7 @@ class ShoppingListHeader extends StatelessWidget {
             'assets/images/bottle.svg',
             height: 145,
           ),
-        )
+        ),
       ],
     );
   }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/models/item.dart';
 import 'package:shoppingify/services/interfaces/api_interface.dart';
-import 'package:shoppingify/widgets/items/categories_header.dart';
-import 'package:shoppingify/widgets/items/items_list.dart';
+import 'package:shoppingify/screens/categories/widgets/categories_header.dart';
+import 'package:shoppingify/screens/categories/widgets/items_list.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({Key? key}) : super(key: key);
