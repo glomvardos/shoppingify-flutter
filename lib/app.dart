@@ -6,7 +6,7 @@ import 'package:shoppingify/screens/drawer/profile_screen.dart';
 import 'package:shoppingify/screens/item_screen.dart';
 import 'package:shoppingify/screens/auth/login.dart';
 import 'package:shoppingify/screens/auth/register.dart';
-import 'package:shoppingify/screens/selected_shopping_list_screen.dart';
+import 'package:shoppingify/screens/selected_shopping_list/selected_shopping_list_screen.dart';
 import 'package:shoppingify/screens/shopping_list/shopping_list_screen.dart';
 import 'package:shoppingify/widgets/bottom_bar/bottom_bar.dart';
 

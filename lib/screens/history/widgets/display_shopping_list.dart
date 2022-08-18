@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoppingify/models/shoppinglist.dart';
 import 'package:intl/intl.dart';
-import 'package:shoppingify/screens/selected_shopping_list_screen.dart';
+import 'package:shoppingify/screens/selected_shopping_list/selected_shopping_list_screen.dart';
 
 class DisplayShoppingList extends StatelessWidget {
   const DisplayShoppingList({Key? key, required this.shoppingList})

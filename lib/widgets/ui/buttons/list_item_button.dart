@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ListItemButton extends StatelessWidget {
-  const ListItemButton(
-      {Key? key,
-      required this.onClickHandler,
-      required this.quantity,
-      this.isSelected = false})
-      : super(key: key);
+  const ListItemButton({
+    Key? key,
+    required this.onClickHandler,
+    required this.quantity,
+    this.isSelected = false,
+  }) : super(key: key);
+
   final Function onClickHandler;
   final String quantity;
   final bool isSelected;

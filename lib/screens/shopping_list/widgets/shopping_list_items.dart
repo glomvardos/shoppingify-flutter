@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoppingify/helpers/string_methods.dart';
 import 'package:shoppingify/models/item.dart';
+import 'package:shoppingify/screens/selected_shopping_list/widgets/item_checkbox.dart';
 import 'package:shoppingify/screens/shopping_list/widgets/shopping_list_item.dart';
 
 class ShoppingListItems extends StatelessWidget {
@@ -8,8 +9,10 @@ class ShoppingListItems extends StatelessWidget {
     Key? key,
     required this.categoryName,
     required this.items,
+    required this.isListOfCheckBoxes,
   }) : super(key: key);
 
+  final bool isListOfCheckBoxes;
   final String categoryName;
   final List<Item> items;
 
@@ -31,7 +34,9 @@ class ShoppingListItems extends StatelessWidget {
         const SizedBox(height: 10),
         ...items
             .map(
-              (item) => ShoppingListItem(item: item),
+              (item) => isListOfCheckBoxes
+                  ? ItemCheckBox(item: item)
+                  : ShoppingListItem(item: item),
             )
             .toList()
       ],

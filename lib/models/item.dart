@@ -6,6 +6,7 @@ class Item {
   final String imageUrl;
   final String category;
   int quantity = 1;
+  bool isChecked = false;
 
   Item({
     this.id,
@@ -27,24 +28,28 @@ class Item {
         category = json["category"];
 
   Item.fromShoppingListJson(Map<String, dynamic> json)
-      : name = json["name"],
+      : id = json["id"],
+        name = json["name"],
         createdAt = DateTime.parse(json["createdAt"]),
         note = json["note"],
         imageUrl = json["imageUrl"],
         category = json["category"],
-        quantity = json["quantity"];
+        quantity = json["quantity"],
+        isChecked = json["isChecked"];
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "name": name,
         "note": note,
         "imageUrl": imageUrl,
         "category": category,
         "quantity": quantity,
         "createdAt": createdAt?.toIso8601String(),
+        "isChecked": isChecked,
       };
 
   @override
   String toString() {
-    return 'Item{id: $id, createdAt: $createdAt, name: $name, note: $note, imageUrl: $imageUrl, category: $category, quantity: $quantity}';
+    return 'Item{id: $id, createdAt: $createdAt, name: $name, note: $note, imageUrl: $imageUrl, category: $category, quantity: $quantity, isChecked: $isChecked}';
   }
 }

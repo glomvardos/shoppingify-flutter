@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shoppingify/models/item.dart';
 import 'package:shoppingify/models/shoppinglist.dart';
+import 'package:shoppingify/screens/shopping_list/widgets/shopping_list_items.dart';
 import 'package:shoppingify/widgets/ui/buttons/go_back_btn.dart';
 import 'package:shoppingify/widgets/ui/shopping_list_header.dart';
 
@@ -11,6 +13,24 @@ class SelectedShoppingListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final shoppingList =
         ModalRoute.of(context)?.settings.arguments as ShoppingList;
+    final Map<String, List<Item>> items = {};
+
+    for (var item in shoppingList.categories) {
+      if (!items.containsKey(item.category)) {
+        items[item.category] = [item];
+      } else {
+        items[item.category]!.add(item);
+      }
+    }
+
+    final List<Widget> displayItems = [];
+    items.forEach((category, items) {
+      displayItems.add(ShoppingListItems(
+        categoryName: category,
+        items: items,
+        isListOfCheckBoxes: true,
+      ));
+    });
 
     return Scaffold(
       body: Container(
@@ -24,7 +44,11 @@ class SelectedShoppingListScreen extends StatelessWidget {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  children: [const GoBackBtn(), const ShoppingListHeader()],
+                  children: [
+                    const GoBackBtn(),
+                    const ShoppingListHeader(),
+                    ...displayItems,
+                  ],
                 ),
               ),
             ),
@@ -36,7 +60,6 @@ class SelectedShoppingListScreen extends StatelessWidget {
 }
 
 // TODO:
-// 1. Display the selected shopping list
 // 2. Set Shopping List as Active (if not already)
 // 3. Add Cancel and Complete buttons
 // 4. Strike through completed items
