@@ -68,7 +68,7 @@ class _ItemScreenState extends State<ItemScreen> {
                             width: double.infinity,
                             height: 250,
                             child: Image.network(
-                              item.imageUrl,
+                              item.imageUrl!,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -96,7 +96,7 @@ class _ItemScreenState extends State<ItemScreen> {
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
-                                  item.note,
+                                  item.note!,
                                   style: const TextStyle(
                                       fontSize: 14,
                                       height: 1.5,

@@ -10,11 +10,13 @@ class ShoppingListItems extends StatelessWidget {
     required this.categoryName,
     required this.items,
     required this.isListOfCheckBoxes,
+    this.listId = 0,
   }) : super(key: key);
 
-  final bool isListOfCheckBoxes;
   final String categoryName;
   final List<Item> items;
+  final int? listId;
+  final bool isListOfCheckBoxes;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,10 @@ class ShoppingListItems extends StatelessWidget {
         ...items
             .map(
               (item) => isListOfCheckBoxes
-                  ? ItemCheckBox(item: item)
+                  ? ItemCheckBox(
+                      item: item,
+                      listId: listId!,
+                    )
                   : ShoppingListItem(item: item),
             )
             .toList()

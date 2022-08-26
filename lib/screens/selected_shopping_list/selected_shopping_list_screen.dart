@@ -25,11 +25,14 @@ class SelectedShoppingListScreen extends StatelessWidget {
 
     final List<Widget> displayItems = [];
     items.forEach((category, items) {
-      displayItems.add(ShoppingListItems(
-        categoryName: category,
-        items: items,
-        isListOfCheckBoxes: true,
-      ));
+      displayItems.add(
+        ShoppingListItems(
+          categoryName: category,
+          items: items,
+          isListOfCheckBoxes: true,
+          listId: shoppingList.id,
+        ),
+      );
     });
 
     return Scaffold(
@@ -44,9 +47,14 @@ class SelectedShoppingListScreen extends StatelessWidget {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const GoBackBtn(),
                     const ShoppingListHeader(),
+                    const SizedBox(height: 20),
+                    Text(shoppingList.name,
+                        style: const TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold)),
                     ...displayItems,
                   ],
                 ),

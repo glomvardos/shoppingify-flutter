@@ -9,6 +9,7 @@ abstract class CategoriesService {
 }
 
 abstract class ShoppingListService {
-  Future<Response> addNewList(List<Item> item, String name);
   Future<List<ShoppingList>> getShoppingLists();
+  Future<Response> addNewList(List<Item> item, String name);
+  Future<ShoppingList> updateShoppingList(int id, int itemId, bool isChecked);
 }

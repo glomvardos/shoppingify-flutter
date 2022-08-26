@@ -9,7 +9,7 @@ class CategoriesHeader extends StatelessWidget {
         text: TextSpan(
       text: 'Shoppingify',
       style: TextStyle(
-          fontSize: 20,
+          fontSize: 19,
           fontWeight: FontWeight.bold,
           color: Theme.of(context).colorScheme.primary),
       children: const [

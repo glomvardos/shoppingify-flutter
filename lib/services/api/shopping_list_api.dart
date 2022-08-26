@@ -13,7 +13,8 @@ class ShoppingListApi implements ShoppingListService {
       final Response response =
           await client.post('/shoppinglist/shoppinglist', data: {
         "name": name,
-        "categories": item.map((item) => item.toJson()).toList(),
+        "categories":
+            item.map((item) => item.shoppingListItemToJson()).toList(),
       });
       return response;
     } on DioError {
@@ -27,5 +28,19 @@ class ShoppingListApi implements ShoppingListService {
     return (response.data as List)
         .map((list) => ShoppingList.fromJson(list))
         .toList();
+  }
+
+  @override
+  Future<ShoppingList> updateShoppingList(
+      int id, int itemId, bool isChecked) async {
+    try {
+      final Response response = await client
+          .patch('/shoppinglist/shoppinglist/$id/item/$itemId', data: {
+        "isChecked": isChecked,
+      });
+      return ShoppingList.fromJson(response.data);
+    } on DioError {
+      rethrow;
+    }
   }
 }

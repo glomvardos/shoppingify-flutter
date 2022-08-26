@@ -1,12 +1,12 @@
 class Item {
   int? id;
-  final DateTime? createdAt;
-  final String name;
-  final String note;
-  final String imageUrl;
-  final String category;
+  DateTime? createdAt;
+  String? note;
+  String? imageUrl;
   int quantity = 1;
   bool isChecked = false;
+  final String name;
+  final String category;
 
   Item({
     this.id,
@@ -27,24 +27,27 @@ class Item {
         imageUrl = json["imageUrl"],
         category = json["category"];
 
-  Item.fromShoppingListJson(Map<String, dynamic> json)
-      : id = json["id"],
-        name = json["name"],
-        createdAt = DateTime.parse(json["createdAt"]),
-        note = json["note"],
-        imageUrl = json["imageUrl"],
-        category = json["category"],
-        quantity = json["quantity"],
-        isChecked = json["isChecked"];
-
   Map<String, dynamic> toJson() => {
-        "id": id,
         "name": name,
         "note": note,
         "imageUrl": imageUrl,
         "category": category,
         "quantity": quantity,
-        "createdAt": createdAt?.toIso8601String(),
+        "isChecked": isChecked,
+      };
+
+  Item.shoppingListItemfromJson(Map<String, dynamic> json)
+      : id = json["id"],
+        createdAt = DateTime.parse(json["createdAt"]),
+        name = json["name"],
+        category = json["category"],
+        quantity = json["quantity"],
+        isChecked = json["isChecked"];
+
+  Map<String, dynamic> shoppingListItemToJson() => {
+        "name": name,
+        "category": category,
+        "quantity": quantity,
         "isChecked": isChecked,
       };
 

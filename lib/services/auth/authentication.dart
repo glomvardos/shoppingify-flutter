@@ -19,6 +19,7 @@ class AuthenticationApi implements AuthenticationService {
     if (token != null) {
       _client.options.headers['Authorization'] =
           'Bearer ${sharedPrefs.getKey('token')}';
+      await getAuthUser();
     }
 
     return token;

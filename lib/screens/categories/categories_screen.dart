@@ -20,8 +20,18 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.isEmpty) {
-              return const Center(
-                child: Text('You haven\'t added any categories yet'),
+              return Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    CategoriesHeader(),
+                    Center(
+                      child: Text('You haven\'t added any categories yet'),
+                    ),
+                    SizedBox.shrink()
+                  ],
+                ),
               );
             }
 
