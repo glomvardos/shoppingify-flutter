@@ -31,7 +31,7 @@ class AuthenticationApi implements AuthenticationService {
       final response = await _client.get('/auth/user');
       await sharedPrefs.addKey('user', json.encode(response.data));
     } on DioError catch (error) {
-      throw AuthenticationException(message: error.response!.data['message']);
+      throw AuthenticationException(message: error.response?.data['message']);
     }
   }
 

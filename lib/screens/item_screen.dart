@@ -58,11 +58,11 @@ class _ItemScreenState extends State<ItemScreen> {
                 child: CircularProgressIndicator(),
               )
             : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
                             width: double.infinity,

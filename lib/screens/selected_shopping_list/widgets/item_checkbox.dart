@@ -29,7 +29,8 @@ class _ItemCheckBoxState extends State<ItemCheckBox> {
         onChanged: (boolValue) {
           context
               .read<ShoppingListService>()
-              .updateShoppingList(widget.listId, widget.item.id!, boolValue!)
+              .updateShoppingListItem(
+                  widget.listId, widget.item.id!, boolValue!)
               .then((value) {
             setState(() {
               widget.item.isChecked = value.categories[0].isChecked;

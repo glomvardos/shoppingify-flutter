@@ -31,7 +31,22 @@ class ShoppingListApi implements ShoppingListService {
   }
 
   @override
-  Future<ShoppingList> updateShoppingList(
+  Future<Response> updateShoppingList(
+      int id, bool isCompleted, bool isCancelled) async {
+    try {
+      final Response response =
+          await client.patch('/shoppinglist/shoppinglist/$id', data: {
+        "isCompleted": isCompleted,
+        "isCancelled": isCancelled,
+      });
+      return response;
+    } on DioError {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ShoppingList> updateShoppingListItem(
       int id, int itemId, bool isChecked) async {
     try {
       final Response response = await client
