@@ -9,9 +9,13 @@ class ItemCheckBox extends StatefulWidget {
     Key? key,
     required this.item,
     required this.listId,
+    required this.checkIfListIsCompleted,
+    required this.isCheckBoxNotEnabled,
   }) : super(key: key);
   final Item item;
   final int listId;
+  final bool isCheckBoxNotEnabled;
+  final Function checkIfListIsCompleted;
 
   @override
   State<ItemCheckBox> createState() => _ItemCheckBoxState();
@@ -26,25 +30,28 @@ class _ItemCheckBoxState extends State<ItemCheckBox> {
       ),
       child: CheckboxListTile(
         value: widget.item.isChecked,
-        onChanged: (boolValue) {
-          context
-              .read<ShoppingListService>()
-              .updateShoppingListItem(
-                  widget.listId, widget.item.id!, boolValue!)
-              .then((value) {
-            setState(() {
-              widget.item.isChecked = value.categories[0].isChecked;
-            });
-          }).catchError((error) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                backgroundColor: Colors.redAccent,
-                content: Text(
-                    error.response!.data['message'] ?? 'Something went wrong'),
-              ),
-            );
-          });
-        },
+        onChanged: widget.isCheckBoxNotEnabled
+            ? null
+            : (boolValue) {
+                context
+                    .read<ShoppingListService>()
+                    .updateShoppingListItem(
+                        widget.listId, widget.item.id!, boolValue!)
+                    .then((value) {
+                  setState(() {
+                    widget.item.isChecked = value.categories[0].isChecked;
+                  });
+                  widget.checkIfListIsCompleted();
+                }).catchError((error) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.redAccent,
+                      content: Text(error.response!.data['message'] ??
+                          'Something went wrong'),
+                    ),
+                  );
+                });
+              },
         contentPadding: const EdgeInsets.all(0),
         checkColor: Colors.white,
         activeColor: Theme.of(context).colorScheme.primary,
@@ -63,7 +70,9 @@ class _ItemCheckBoxState extends State<ItemCheckBox> {
             borderRadius: BorderRadius.circular(24),
             color: const Color(0xFFFFF0DE),
             border: Border.all(
-              color: Theme.of(context).colorScheme.primary,
+              color: widget.isCheckBoxNotEnabled
+                  ? Colors.grey
+                  : Theme.of(context).colorScheme.primary,
               width: 2,
             ),
           ),
@@ -74,7 +83,9 @@ class _ItemCheckBoxState extends State<ItemCheckBox> {
             child: Text(
               '${widget.item.quantity} pcs',
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                color: widget.isCheckBoxNotEnabled
+                    ? Colors.grey
+                    : Theme.of(context).colorScheme.primary,
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
               ),

@@ -35,11 +35,15 @@ class ShoppingListScreen extends StatelessWidget {
                 final List<Widget> displayItems = [];
 
                 transformedItems.forEach((category, items) {
-                  displayItems.add(ShoppingListItems(
-                    categoryName: category,
-                    items: items,
-                    isListOfCheckBoxes: false,
-                  ));
+                  displayItems.add(
+                    ShoppingListItems(
+                      categoryName: category,
+                      items: items,
+                      isListOfCheckBoxes: false,
+                      isCheckBoxNotEnabled: false,
+                      checkIfListIsCompleted: () {},
+                    ),
+                  );
                 });
 
                 return state.items.isEmpty

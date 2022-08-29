@@ -10,6 +10,8 @@ class ShoppingListItems extends StatelessWidget {
     required this.categoryName,
     required this.items,
     required this.isListOfCheckBoxes,
+    required this.checkIfListIsCompleted,
+    required this.isCheckBoxNotEnabled,
     this.listId = 0,
   }) : super(key: key);
 
@@ -17,6 +19,8 @@ class ShoppingListItems extends StatelessWidget {
   final List<Item> items;
   final int? listId;
   final bool isListOfCheckBoxes;
+  final bool isCheckBoxNotEnabled;
+  final Function checkIfListIsCompleted;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +44,8 @@ class ShoppingListItems extends StatelessWidget {
                   ? ItemCheckBox(
                       item: item,
                       listId: listId!,
+                      checkIfListIsCompleted: checkIfListIsCompleted,
+                      isCheckBoxNotEnabled: isCheckBoxNotEnabled,
                     )
                   : ShoppingListItem(item: item),
             )

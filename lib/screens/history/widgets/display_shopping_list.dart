@@ -1,36 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:shoppingify/helpers/shopping_list_status.dart';
 import 'package:shoppingify/models/shoppinglist.dart';
 import 'package:intl/intl.dart';
 import 'package:shoppingify/screens/selected_shopping_list/selected_shopping_list_screen.dart';
 
 class DisplayShoppingList extends StatelessWidget {
-  const DisplayShoppingList({Key? key, required this.shoppingList})
-      : super(key: key);
+  const DisplayShoppingList({
+    Key? key,
+    required this.shoppingList,
+  }) : super(key: key);
   final ShoppingList shoppingList;
-
-  Map<String, dynamic> shoppingListStatus(ShoppingList list) {
-    if (list.isActive) {
-      return {
-        "status": "Active",
-        "color": Colors.greenAccent,
-      };
-    } else if (list.isCompleted) {
-      return {
-        "status": "Completed",
-        "color": const Color(0xFF56CCF2),
-      };
-    } else if (list.isCancelled) {
-      return {
-        "status": "Cancelled",
-        "color": const Color(0xFFEB5757),
-      };
-    } else {
-      return {
-        "status": "Inactive",
-        "color": const Color(0xFFC1C1C4),
-      };
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,14 +58,16 @@ class DisplayShoppingList extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                              color: shoppingListStatus(shoppingList)['color'],
+                              color: ShoppingListStatus.status(
+                                  shoppingList)['color'],
                               width: 1,
                             ),
                           ),
                           child: Text(
-                            shoppingListStatus(shoppingList)['status'],
+                            ShoppingListStatus.status(shoppingList)['status'],
                             style: TextStyle(
-                              color: shoppingListStatus(shoppingList)['color'],
+                              color: ShoppingListStatus.status(
+                                  shoppingList)['color'],
                               fontWeight: FontWeight.w500,
                             ),
                           ),
