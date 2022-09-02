@@ -8,17 +8,11 @@ class ShoppingLists extends StatelessWidget {
   final List<ShoppingList> shoppingLists;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const ClampingScrollPhysics(),
-      padding: const EdgeInsets.all(20.0),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Shopping History',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
           if (shoppingLists.isEmpty)
             SizedBox(
                 height: MediaQuery.of(context).size.height * 0.65,
@@ -26,14 +20,32 @@ class ShoppingLists extends StatelessWidget {
                     child: Text("You don't have any shopping lists"))),
           const SizedBox(height: 20),
           if (shoppingLists.isNotEmpty)
-            ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: shoppingLists.length,
-                itemBuilder: (context, index) {
-                  return DisplayShoppingList(
-                      shoppingList: shoppingLists[index]);
-                }),
+            Expanded(
+              child: ListView.builder(
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: shoppingLists.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: Dismissible(
+                        direction: DismissDirection.endToStart,
+                        background: Container(
+                          padding: const EdgeInsets.only(right: 20),
+                          color: Colors.red,
+                          child: const Icon(
+                            Icons.delete,
+                            color: Colors.white,
+                            size: 35,
+                          ),
+                          alignment: Alignment.centerRight,
+                        ),
+                        key: Key(shoppingLists[index].id.toString()),
+                        child: DisplayShoppingList(
+                            shoppingList: shoppingLists[index]),
+                      ),
+                    );
+                  }),
+            ),
         ],
       ),
     );

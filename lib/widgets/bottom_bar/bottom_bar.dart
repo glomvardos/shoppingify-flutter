@@ -23,6 +23,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
     const StatisticsScreen(),
   ];
 
+  final List<String> _screenNames = [
+    'Categories',
+    'Shopping History',
+    'Statistics',
+  ];
+
   int _selectedPageIndex = 0;
 
   void _selectPage(int index) {
@@ -63,9 +69,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
         ],
         centerTitle: false,
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: const Text(
-          'Shoppingify',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        title: Text(
+          _screenNames[_selectedPageIndex],
+          style:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
