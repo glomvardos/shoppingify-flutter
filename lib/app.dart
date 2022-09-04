@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/auth/authentication_bloc.dart';
 import 'package:shoppingify/screens/add_new_item_screen.dart';
 import 'package:shoppingify/screens/drawer/profile_screen.dart';
-import 'package:shoppingify/screens/history/history_screen.dart';
 import 'package:shoppingify/screens/item_screen.dart';
 import 'package:shoppingify/screens/auth/login.dart';
 import 'package:shoppingify/screens/auth/register.dart';

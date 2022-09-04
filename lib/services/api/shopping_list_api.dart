@@ -58,4 +58,15 @@ class ShoppingListApi implements ShoppingListService {
       rethrow;
     }
   }
+
+  @override
+  Future<Response> deleteShoppingList(int id) async {
+    try {
+      final Response response =
+          await client.delete('/shoppinglist/shoppinglist/$id');
+      return response;
+    } on DioError {
+      rethrow;
+    }
+  }
 }

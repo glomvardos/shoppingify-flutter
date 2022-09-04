@@ -15,4 +15,5 @@ abstract class ShoppingListService {
       int id, bool isCompleted, bool isCancelled);
   Future<ShoppingList> updateShoppingListItem(
       int id, int itemId, bool isChecked);
+  Future<Response> deleteShoppingList(int id);
 }
