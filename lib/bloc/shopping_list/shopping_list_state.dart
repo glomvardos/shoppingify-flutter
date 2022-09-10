@@ -13,9 +13,10 @@ class ShoppingListLoading extends ShoppingListState {}
 
 class ShoppingListLoaded extends ShoppingListState {
   final List<Item> items;
+  final List<ShoppingList> shoppingLists;
 
-  const ShoppingListLoaded({required this.items});
+  const ShoppingListLoaded({required this.items, required this.shoppingLists});
 
   @override
-  List<Object> get props => [items];
+  List<Object> get props => [items, shoppingLists];
 }

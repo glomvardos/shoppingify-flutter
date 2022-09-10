@@ -69,10 +69,8 @@ class _SelectedShoppingListScreenState
                     content: Text(text),
                   ),
                 ),
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    BottomNavBar.routeName,
-                    (Route<dynamic> route) =>
-                        route.settings.name == BottomNavBar.routeName)
+                Navigator.of(context)
+                    .pushReplacementNamed(BottomNavBar.routeName, arguments: 1)
               })
           .catchError((error) => {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -103,9 +101,8 @@ class _SelectedShoppingListScreenState
           categoryName: category,
           items: items,
           isListOfCheckBoxes: true,
-          isCheckBoxNotEnabled: _shoppingList.isCompleted ||
-              _shoppingList.isCancelled ||
-              !_shoppingList.isActive,
+          isCheckBoxNotEnabled:
+              _shoppingList.isCompleted || _shoppingList.isCancelled,
           listId: _shoppingList.id,
           checkIfListIsCompleted: _checkIfListIsCompleted,
         ),
@@ -130,14 +127,8 @@ class _SelectedShoppingListScreenState
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const GoBackBtn(),
-                            Button(
-                                type: ButtonType.primary,
-                                text: _shoppingList.isActive
-                                    ? 'Make Inactive'
-                                    : 'Make Active',
-                                onPressedHandler: () {})
+                          children: const [
+                            GoBackBtn(),
                           ],
                         ),
                         const ShoppingListHeader(),
@@ -180,43 +171,44 @@ class _SelectedShoppingListScreenState
                     ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.only(
-                      left: 25, right: 25, top: 25, bottom: 35),
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Button(
-                        type: ButtonType.secondary,
-                        isDisabled: _shoppingList.isCompleted ||
-                            _shoppingList.isCancelled,
-                        text: 'cancel',
-                        onPressedHandler: () async {
-                          final res = await buttonDialog('cancel');
-                          if (res) {
-                            onSubmitListAction(false, true,
-                                'Your list has been cancelled successfully');
-                          }
-                        },
-                      ),
-                      const SizedBox(width: 20),
-                      Button(
-                        type: ButtonType.primary,
-                        text: 'Complete',
-                        isDisabled:
-                            !isListCompleted || _shoppingList.isCompleted,
-                        onPressedHandler: () async {
-                          final res = await buttonDialog('complete');
-                          if (res) {
-                            onSubmitListAction(true, false,
-                                'Your list has been completed successfully');
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                )
+                if (!_shoppingList.isCancelled && !_shoppingList.isCompleted)
+                  Container(
+                    padding: const EdgeInsets.only(
+                        left: 25, right: 25, top: 25, bottom: 35),
+                    color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Button(
+                          type: ButtonType.secondary,
+                          isDisabled: _shoppingList.isCompleted ||
+                              _shoppingList.isCancelled,
+                          text: 'cancel',
+                          onPressedHandler: () async {
+                            final res = await buttonDialog('cancel');
+                            if (res) {
+                              onSubmitListAction(false, true,
+                                  'Your list has been cancelled successfully');
+                            }
+                          },
+                        ),
+                        const SizedBox(width: 20),
+                        Button(
+                          type: ButtonType.primary,
+                          text: 'Complete',
+                          isDisabled:
+                              !isListCompleted || _shoppingList.isCompleted,
+                          onPressedHandler: () async {
+                            final res = await buttonDialog('complete');
+                            if (res) {
+                              onSubmitListAction(true, false,
+                                  'Your list has been completed successfully');
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  )
               ],
             )),
       ),

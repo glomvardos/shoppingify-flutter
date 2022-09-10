@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shoppingify/helpers/custom_search_delegate.dart';
 import 'package:shoppingify/screens/add_new_item_screen.dart';
 import 'package:shoppingify/screens/categories/categories_screen.dart';
 import 'package:shoppingify/screens/history/history_screen.dart';
@@ -10,6 +11,7 @@ import 'package:shoppingify/screens/drawer/widgets/drawer_menu.dart';
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
   static const routeName = '/home';
+
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
@@ -38,6 +40,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   @override
+  void didChangeDependencies() {
+    var routeIndex =
+        ModalRoute.of(context)?.settings.arguments ?? _selectedPageIndex;
+    _selectPage(routeIndex as int);
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
@@ -50,13 +60,22 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ),
         actions: [
-          IconButton(
-            splashRadius: 1,
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).pushNamed(AddNewItemScreen.routeName);
-            },
-          ),
+          if (_selectedPageIndex == 0)
+            IconButton(
+              splashRadius: 1,
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                Navigator.of(context).pushNamed(AddNewItemScreen.routeName);
+              },
+            ),
+          if (_selectedPageIndex == 1)
+            IconButton(
+              splashRadius: 1,
+              onPressed: () {
+                showSearch(context: context, delegate: CustomSearchDelegate());
+              },
+              icon: const Icon(Icons.search),
+            ),
           IconButton(
             splashRadius: 1,
             icon: const Icon(Icons.menu),

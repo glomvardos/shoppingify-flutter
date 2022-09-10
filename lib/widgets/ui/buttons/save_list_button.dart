@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
 import 'package:shoppingify/models/item.dart';
 import 'package:shoppingify/services/interfaces/api_interface.dart';
+import 'package:shoppingify/widgets/bottom_bar/bottom_bar.dart';
 
 class SaveListButton extends StatelessWidget {
   SaveListButton({Key? key, required this.items}) : super(key: key);
@@ -32,7 +33,9 @@ class SaveListButton extends StatelessWidget {
                     backgroundColor: Colors.green,
                     content: Text('Your Shopping List has been saved!'),
                   ),
-                )
+                ),
+                Navigator.of(context)
+                    .pushReplacementNamed(BottomNavBar.routeName, arguments: 1)
               })
           .catchError((error) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

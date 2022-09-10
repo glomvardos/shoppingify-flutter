@@ -1,19 +1,20 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shoppingify/models/item.dart';
+import 'package:shoppingify/models/shoppinglist.dart';
 
 part 'shopping_list_event.dart';
+
 part 'shopping_list_state.dart';
 
 class ShoppingListBloc extends Bloc<ShoppingListEvent, ShoppingListState> {
   ShoppingListBloc() : super(ShoppingListLoading()) {
     on<InitialItems>((event, emit) {
-      emit(const ShoppingListLoaded(items: []));
+      emit(const ShoppingListLoaded(items: [], shoppingLists: []));
     });
 
     on<AddItem>((event, emit) {
       final state = this.state;
-
       if (state is ShoppingListLoaded) {
         final items = [...state.items];
         final isAlreadyAdded = items.any((item) => item.id == event.item.id);
@@ -27,9 +28,16 @@ class ShoppingListBloc extends Bloc<ShoppingListEvent, ShoppingListState> {
           findAddedItem.quantity += 1;
           items[index] = findAddedItem;
 
-          emit(ShoppingListLoaded(items: items));
+          emit(ShoppingListLoaded(
+            items: items,
+            shoppingLists: state.shoppingLists,
+          ));
         } else {
-          emit(ShoppingListLoaded(items: [...state.items, event.item]));
+          emit(
+            ShoppingListLoaded(
+                items: [...state.items, event.item],
+                shoppingLists: state.shoppingLists),
+          );
         }
       }
     });
@@ -44,6 +52,7 @@ class ShoppingListBloc extends Bloc<ShoppingListEvent, ShoppingListState> {
         emit(
           ShoppingListLoaded(
             items: List.from(state.items)..insert(index, event.item),
+            shoppingLists: state.shoppingLists,
           ),
         );
       }
@@ -56,6 +65,7 @@ class ShoppingListBloc extends Bloc<ShoppingListEvent, ShoppingListState> {
           emit(
             ShoppingListLoaded(
               items: List.from(state.items)..remove(event.item),
+              shoppingLists: state.shoppingLists,
             ),
           );
         } else {
@@ -66,9 +76,18 @@ class ShoppingListBloc extends Bloc<ShoppingListEvent, ShoppingListState> {
           emit(
             ShoppingListLoaded(
               items: List.from(state.items)..insert(index, event.item),
+              shoppingLists: state.shoppingLists,
             ),
           );
         }
+      }
+    });
+
+    on<AddShoppingLists>((event, emit) {
+      final state = this.state;
+      if (state is ShoppingListLoaded) {
+        emit(ShoppingListLoaded(
+            items: state.items, shoppingLists: event.shoppingLists));
       }
     });
   }

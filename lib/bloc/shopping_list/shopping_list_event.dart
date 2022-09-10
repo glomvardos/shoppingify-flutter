@@ -33,3 +33,12 @@ class DecrementQuantity extends ShoppingListEvent {
   @override
   List<Object> get props => [item];
 }
+
+class AddShoppingLists extends ShoppingListEvent {
+  final List<ShoppingList> shoppingLists;
+
+  AddShoppingLists({required this.shoppingLists});
+
+  @override
+  List<Object> get props => [shoppingLists];
+}
