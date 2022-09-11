@@ -20,7 +20,14 @@ class HistoryScreen extends StatelessWidget {
             context
                 .read<ShoppingListBloc>()
                 .add(AddShoppingLists(shoppingLists: shoppingLists));
-            return ShoppingLists(shoppingLists: shoppingLists);
+            return BlocBuilder<ShoppingListBloc, ShoppingListState>(
+              builder: (context, state) {
+                if (state is ShoppingListLoaded) {
+                  return ShoppingLists(shoppingLists: state.shoppingLists);
+                }
+                return const SizedBox.shrink();
+              },
+            );
           }
           return const Center(
             child: CircularProgressIndicator(),

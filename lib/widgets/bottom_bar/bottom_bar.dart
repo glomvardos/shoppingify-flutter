@@ -4,6 +4,7 @@ import 'package:shoppingify/helpers/custom_search_delegate.dart';
 import 'package:shoppingify/screens/add_new_item_screen.dart';
 import 'package:shoppingify/screens/categories/categories_screen.dart';
 import 'package:shoppingify/screens/history/history_screen.dart';
+import 'package:shoppingify/screens/history/widgets/shopping_lists_filter.dart';
 import 'package:shoppingify/screens/shopping_list/shopping_list_screen.dart';
 import 'package:shoppingify/screens/statistics_screen.dart';
 import 'package:shoppingify/screens/drawer/widgets/drawer_menu.dart';
@@ -120,10 +121,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
       body: _screens[_selectedPageIndex],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(ShoppingListScreen.routeName);
+          _selectedPageIndex == 1
+              ? showModalBottomSheet(
+                  context: context,
+                  builder: (context) => const ShoppingListsFilter())
+              : Navigator.of(context).pushNamed(ShoppingListScreen.routeName);
         },
         backgroundColor: Theme.of(context).colorScheme.primary,
-        child: const Icon(Icons.shopping_cart),
+        child: Icon(_selectedPageIndex == 1
+            ? Icons.filter_list_alt
+            : Icons.shopping_cart),
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,
