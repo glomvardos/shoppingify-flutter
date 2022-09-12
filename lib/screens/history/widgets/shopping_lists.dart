@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/models/shoppinglist.dart';
+import 'package:shoppingify/screens/history/history_screen.dart';
 import 'package:shoppingify/screens/history/widgets/display_shopping_list.dart';
 import 'package:shoppingify/services/interfaces/api_interface.dart';
+import 'package:shoppingify/widgets/bottom_bar/bottom_bar.dart';
 
 class ShoppingLists extends StatelessWidget {
   const ShoppingLists({Key? key, required this.shoppingLists})
       : super(key: key);
   final List<ShoppingList> shoppingLists;
+
   @override
   Widget build(BuildContext context) {
     Future<bool> onConfirmDelete(ShoppingList shoppingList) async {
       return await showDialog(
         context: context,
+        barrierDismissible: false,
         builder: (_) => AlertDialog(
           title: Text('Delete ${shoppingList.name} shopping list'),
           content:
@@ -35,7 +39,10 @@ class ShoppingLists extends StatelessWidget {
       await context
           .read<ShoppingListService>()
           .deleteShoppingList(id)
-          .catchError(
+          .then((_) {
+        Navigator.of(context)
+            .pushReplacementNamed(BottomNavBar.routeName, arguments: 1);
+      }).catchError(
         (error) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -86,7 +93,7 @@ class ShoppingLists extends StatelessWidget {
                           ),
                           alignment: Alignment.centerRight,
                         ),
-                        key: Key(shoppingLists[index].id.toString()),
+                        key: UniqueKey(),
                         child: DisplayShoppingList(
                             shoppingList: shoppingLists[index]),
                       ),

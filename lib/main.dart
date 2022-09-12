@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/app.dart';
 import 'package:shoppingify/bloc/auth/authentication_bloc.dart';
 import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
+import 'package:shoppingify/bloc/filter/filter_bloc.dart';
 import 'package:shoppingify/services/api/categories_api.dart';
 import 'package:shoppingify/services/api/shopping_list_api.dart';
 import 'package:shoppingify/services/auth/authentication.dart';
@@ -37,6 +38,11 @@ void main() async {
           ),
           BlocProvider<ShoppingListBloc>(
             create: (context) => ShoppingListBloc()..add(InitialItems()),
+          ),
+          BlocProvider<FilterBloc>(
+            create: (context) => FilterBloc(
+              shoppingListBloc: context.read<ShoppingListBloc>(),
+            ),
           ),
         ],
         child: const App(),

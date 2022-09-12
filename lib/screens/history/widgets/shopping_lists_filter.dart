@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shoppingify/bloc/filter/filter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:shoppingify/enums/button_type.dart';
 import 'package:shoppingify/enums/shopping_list_status.dart';
@@ -13,13 +15,22 @@ class ShoppingListsFilter extends StatefulWidget {
 
 class _ShoppingListsFilterState extends State<ShoppingListsFilter> {
   DateTimeRange? _selectedDateRange;
-  ShoppingListStatus _selectedStatus = ShoppingListStatus.all;
+  late ShoppingListStatus _selectedStatus;
+  late FilterBloc _filterBloc;
+
+  @override
+  void initState() {
+    _filterBloc = context.read<FilterBloc>();
+    final state = _filterBloc.state;
+    _selectedStatus = state.currentStatus;
+    super.initState();
+  }
 
   // This function will be triggered when the floating button is pressed
   void _showDatePicker() async {
     final DateTimeRange? result = await showDateRangePicker(
       initialDateRange:
-      DateTimeRange(start: DateTime.now(), end: DateTime.now()),
+          DateTimeRange(start: DateTime.now(), end: DateTime.now()),
       context: context,
       firstDate: DateTime(2022, 1, 1),
       lastDate: DateTime.now(),
@@ -66,9 +77,7 @@ class _ShoppingListsFilterState extends State<ShoppingListsFilter> {
                 Row(
                   children: [
                     Text(
-                        '${DateFormat('dd/MM/yyyy').format(
-                            _selectedDateRange!.start)} - ${DateFormat(
-                            'dd/MM/yyyy').format(_selectedDateRange!.end)}'),
+                        '${DateFormat('dd/MM/yyyy').format(_selectedDateRange!.start)} - ${DateFormat('dd/MM/yyyy').format(_selectedDateRange!.end)}'),
                     IconButton(
                       onPressed: () {
                         setState(() {
@@ -87,8 +96,7 @@ class _ShoppingListsFilterState extends State<ShoppingListsFilter> {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           ...shoppingListStatusNames.entries
-              .map((e) =>
-              RadioListTile(
+              .map((e) => RadioListTile(
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   visualDensity: VisualDensity.compact,
@@ -108,9 +116,13 @@ class _ShoppingListsFilterState extends State<ShoppingListsFilter> {
             child: Button(
                 type: ButtonType.primary,
                 text: 'Apply Filters',
-                onPressedHandler: () {}),
+                onPressedHandler: () {
+                  Navigator.of(context).pop();
+                  context
+                      .read<FilterBloc>()
+                      .add(FilterList(status: _selectedStatus));
+                }),
           )
-
         ],
       ),
     );

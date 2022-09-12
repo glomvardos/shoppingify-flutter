@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingify/bloc/shopping_list/shopping_list_bloc.dart';
+import 'package:shoppingify/bloc/filter/filter_bloc.dart';
 import 'package:shoppingify/models/shoppinglist.dart';
 import 'package:shoppingify/services/interfaces/api_interface.dart';
 import 'package:shoppingify/screens/history/widgets/shopping_lists.dart';
@@ -20,10 +21,11 @@ class HistoryScreen extends StatelessWidget {
             context
                 .read<ShoppingListBloc>()
                 .add(AddShoppingLists(shoppingLists: shoppingLists));
-            return BlocBuilder<ShoppingListBloc, ShoppingListState>(
+            return BlocBuilder<FilterBloc, FilterState>(
               builder: (context, state) {
-                if (state is ShoppingListLoaded) {
-                  return ShoppingLists(shoppingLists: state.shoppingLists);
+                if (state is FilterLoaded) {
+                  return ShoppingLists(
+                      shoppingLists: state.filteredShoppingLists);
                 }
                 return const SizedBox.shrink();
               },
