@@ -27,7 +27,7 @@ class ShoppingList {
         updatedAt = json['updatedAt'],
         name = json['name'],
         categories = (json['categories'] as List)
-            .map((item) => Item.shoppingListItemfromJson(item))
+            .map((item) => Item.shoppingListItemFromJson(item))
             .toList(),
         isCompleted = json['isCompleted'],
         isCancelled = json['isCancelled'],

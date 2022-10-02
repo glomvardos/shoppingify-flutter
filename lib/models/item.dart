@@ -36,7 +36,7 @@ class Item {
         "isChecked": isChecked,
       };
 
-  Item.shoppingListItemfromJson(Map<String, dynamic> json)
+  Item.shoppingListItemFromJson(Map<String, dynamic> json)
       : id = json["id"],
         createdAt = DateTime.parse(json["createdAt"]),
         name = json["name"],
