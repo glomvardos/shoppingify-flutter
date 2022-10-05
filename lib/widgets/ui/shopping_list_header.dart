@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shoppingify/screens/add_new_item_screen.dart';
+import 'package:shoppingify/screens/add_new_item_screen/add_new_item_screen.dart';
 
 class ShoppingListHeader extends StatelessWidget {
   const ShoppingListHeader({Key? key}) : super(key: key);

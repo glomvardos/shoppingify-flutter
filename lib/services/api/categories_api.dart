@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:shoppingify/models/category.dart';
 import 'package:shoppingify/models/item.dart';
 import 'package:shoppingify/services/interfaces/api_interface.dart';
 
@@ -15,6 +16,17 @@ class CategoriesApi implements CategoriesService {
     );
 
     return response;
+  }
+
+  @override
+  Future<List<Category>> fetchCategories() async {
+    final Response response = await client.get('/category/category');
+
+    final List<Category> categories = (response.data as List)
+        .map((category) => Category.fromJson(category))
+        .toList();
+
+    return categories;
   }
 
   @override

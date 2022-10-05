@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shoppingify/screens/add_new_item_screen/add_new_item_screen.dart';
 import 'package:shoppingify/helpers/custom_search_delegate.dart';
-import 'package:shoppingify/screens/add_new_item_screen.dart';
 import 'package:shoppingify/screens/categories/categories_screen.dart';
 import 'package:shoppingify/screens/history/history_screen.dart';
 import 'package:shoppingify/screens/history/widgets/shopping_lists_filter.dart';
