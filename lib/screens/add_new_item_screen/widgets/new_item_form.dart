@@ -130,33 +130,43 @@ class _NewItemFormState extends State<NewItemForm> {
                         const SizedBox(height: 20),
                         const Label(text: 'Category'),
                         const SizedBox(height: 5),
-                        Autocomplete(
-                          optionsBuilder: (TextEditingValue textEditingValue) {
-                            if (textEditingValue.text == '') {
-                              return const Iterable<String>.empty();
-                            }
+                        SizedBox(
+                          width: double.infinity,
+                          child: Autocomplete(
+                            optionsBuilder:
+                                (TextEditingValue textEditingValue) {
+                              if (textEditingValue.text == '') {
+                                return widget.categories
+                                    .map((category) =>
+                                        StringMethods.capitalizeString(
+                                            category.category))
+                                    .toList();
+                              }
 
-                            if (textEditingValue.text.trim() != '') {
+                              if (textEditingValue.text.trim() != '') {
+                                setState(() {
+                                  _categoryController.text =
+                                      textEditingValue.text;
+                                });
+                              }
+                              return widget.categories
+                                  .map((category) =>
+                                      StringMethods.capitalizeString(
+                                          category.category))
+                                  .where(
+                                    (category) => category
+                                        .toLowerCase()
+                                        .contains(
+                                          textEditingValue.text.toLowerCase(),
+                                        ),
+                                  );
+                            },
+                            onSelected: (String selection) {
                               setState(() {
-                                _categoryController.text =
-                                    textEditingValue.text;
+                                _categoryController.text = selection;
                               });
-                            }
-                            return widget.categories
-                                .map((category) =>
-                                    StringMethods.capitalizeString(
-                                        category.category))
-                                .where(
-                                  (category) => category.toLowerCase().contains(
-                                        textEditingValue.text.toLowerCase(),
-                                      ),
-                                );
-                          },
-                          onSelected: (String selection) {
-                            setState(() {
-                              _categoryController.text = selection;
-                            });
-                          },
+                            },
+                          ),
                         ),
                         const SizedBox(height: 20),
                         const Spacer(),
